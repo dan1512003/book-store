@@ -1,0 +1,78 @@
+.container-fluid {
+  background-color: #F5F0E8;
+  height: 100vh;
+}
+.title h1 {
+  font-size: 16px;
+  line-height: 24px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 700;
+}
+.content form {
+  width: 448px;
+  display: flex;
+  flex-direction: column;
+}
+.input-field {
+  width: 448px;
+  height: 45px;
+  border-radius: 2px;
+  background-color: #F5F0E8;
+  border: 1px solid #C8BDA0;
+}
+.forgot-password {
+  background-color: #F5F0E8;
+  border: none;
+  color: #8B3A1A;
+}
+.login-button {
+background-color: #8B3A1A;
+color: #F5F0E8;
+ border-radius: 2px;
+ border: none;
+ width: 448px;
+  height: 44px;
+}
+.google-login-button{
+background-color: #FFFFFF;
+color: #1C1410;
+ border-radius: 2px;
+ border: 1px solid #C8BDA0;
+ width: 448px;
+  height: 44px;
+}
+.facebook-login-button {
+background-color: #1877F2;
+color: #FFFFFF;
+ border-radius: 2px;
+ border: 1px solid #1877F2;
+ width: 448px;
+  height: 44px;
+}
+.divider-container {
+  width: 448px;
+  gap: 12px;
+}
+
+.divider {
+  flex: 1;
+  margin: 0;
+  border: none;
+  border-top: 1px solid #D9D2C5;
+}
+
+.divider-text {
+  margin: 0;
+  color: #8B3A1A;
+}
+.register-text{
+    font-size: 14px;
+    color: #6B5740;
+}
+.register-button{
+    border:none;
+     background-color: #F5F0E8;
+     font-size: 14px;
+    color: #8B3A1A
+
+}
