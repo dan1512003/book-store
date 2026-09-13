@@ -24,6 +24,7 @@ toggleConfirmPassword() {
 
   goToLogin() {
   
-    this.router.navigate(['/']);
+    this.router.navigate(['/login']);
   }
 }
+
