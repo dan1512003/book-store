@@ -1,1 +1,99 @@
-<p>register works!</p>
+<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+
+    <div class="title mt-5 mb-5">
+      <h1 class="store-name">BOOK STORE</h1>
+    </div>
+
+    <div class="content">
+      <form class="register-form" action="">
+
+        <label class="input-label mt-2" >Họ và Tên</label>
+        <input class="input-field"
+        placeholder="Nguyễn Văn A"
+        >
+
+        <label class="input-label mt-2">Email </label>
+        <input class="input-field"
+        placeholder="example@gmail.com"
+        >
+
+        <label class="input-label mt-2">Số Điện Thoại </label>
+        <input class="input-field"
+        placeholder="0123 456 789"
+        >
+
+ <label class="input-label mt-2">Mật khẩu</label>
+
+<div class="password-wrapper">
+  <input
+    class="input-field"
+    [type]="showPassword ? 'text' : 'password'"
+    placeholder="Tối thiểu 8 ký tự"
+  >
+
+  <i
+    class="fa-solid"
+    [class.fa-eye]="!showPassword"
+    [class.fa-eye-slash]="showPassword"
+    (click)="togglePassword()"
+  ></i>
+</div>
+      
+
+       <label class="input-label mt-2">Nhập lại mật khẩu</label>
+
+<div class="password-wrapper">
+  <input
+    class="input-field"
+    [type]="showConfirmPassword ? 'text' : 'password'"
+    placeholder="Nhập lại mật khẩu"
+  >
+
+  <i
+    class="fa-solid"
+    [class.fa-eye]="!showConfirmPassword"
+    [class.fa-eye-slash]="showConfirmPassword"
+    (click)="toggleConfirmPassword()"
+  ></i>
+</div>
+       <div class="agreement">
+           <input class="agreement-checkbox" type="checkbox">
+            <span class="agreement-text">
+                 Tôi đồng ý với
+                 <a class="agreement-link">Điều khoản dịch vụ</a>
+                 và
+                 <a class="agreement-link">Chính sách bảo mật</a>
+            </span>
+      </div>
+        <button class="register-button mt-4 mb-1">
+          Tạo tài khoản
+        </button>
+<div class="divider-container d-flex flex-row align-items-center">
+  <hr class="divider">
+  <p class="divider-text">hoặc</p>
+  <hr class="divider">
+</div>
+        <button class="google-login-button mt-1 mb-1">
+            <i class="fa-brands fa-google"></i>
+          Đăng nhập với Google
+        </button>
+
+        <button class="facebook-login-button mt-1  mb-1">
+            <i class="fa-brands fa-facebook-f"></i>
+        
+          Đăng nhập với Facebook
+        </button>
+
+      </form>
+    </div>
+
+    <p class="login-text">
+      Đã có tài khoản?
+      <button class="login-button"
+       (click)="goToLogin()"
+      >
+        Đăng nhập
+      </button>
+    </p>
+
+  </div>
