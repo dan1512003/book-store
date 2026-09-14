@@ -1,35 +1,66 @@
 .container-fluid {
   background-color: #F5F0E8;
-  
+  min-height: 100vh;
+  padding-left: 16px;
+  padding-right: 16px;
 }
+
+
+.title {
+  text-align: center;
+}
+
 .title h1 {
   font-size: 16px;
   line-height: 24px;
   font-family: "Source Sans 3", sans-serif;
   font-weight: 700;
+  color: #3D2B1A;
+  margin: 0;
 }
+
+
+.content {
+  width: 100%;
+  max-width: 448px;
+}
+
 .content form {
-  width: 448px;
+  width: 100%;
   display: flex;
   flex-direction: column;
 }
-.input-label{
-    color: #3D2B1A;
+
+.input-label {
+  color: #3D2B1A;
+  font-size: 14px;
+  line-height: 20px;
+  margin-bottom: 5px;
 }
+
+
 .input-field {
-  width: 448px;
+  width: 100%;
   height: 45px;
+  box-sizing: border-box;
   border-radius: 2px;
   background-color: #F5F0E8;
   border: 1px solid #C8BDA0;
-
+  padding: 0 12px;
+  font-size: 14px;
+  color: #3D2B1A;
 }
-.input-field:focus{
+
+.input-field::placeholder {
+  color: #9A8C7A;
+}
+
+.input-field:focus {
   outline: 2px solid #8B3A1A;
   outline-offset: 2px;
-
-    
 }
+
+
 .password-wrapper {
   position: relative;
   width: 100%;
@@ -54,42 +85,67 @@
   color: #8B3A1A;
 }
 
-.agreement-text {
-  color: #6B5740;
+
+.agreement {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  margin-top: 12px;
 }
 
-.agreement-link{
+.agreement-checkbox {
+  margin-top: 3px;
+  flex-shrink: 0;
+}
+
+.agreement-text {
+  color: #6B5740;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.agreement-link {
   color: #8B3A1A;
   text-decoration: underline;
   cursor: pointer;
 }
 
-.register-button {
-background-color: #8B3A1A;
-color: #F5F0E8;
- border-radius: 2px;
- border: none;
- width: 448px;
-  height: 44px;
-}
-.google-login-button{
-background-color: #FFFFFF;
-color: #1C1410;
- border-radius: 2px;
- border: 1px solid #C8BDA0;
- width: 448px;
-  height: 44px;
-}
+
+.register-button,
+.google-login-button,
 .facebook-login-button {
-background-color: #1877F2;
-color: #FFFFFF;
- border-radius: 2px;
- border: 1px solid #1877F2;
- width: 448px;
+  width: 100%;
   height: 44px;
+  box-sizing: border-box;
+  border-radius: 2px;
+  font-size: 14px;
 }
+.register-button:hover,
+.google-login-button:hover,
+.facebook-login-button:hover {
+  filter: brightness(1.2);
+}
+.register-button {
+  background-color: #8B3A1A;
+  color: #F5F0E8;
+  border: none;
+}
+
+.google-login-button {
+  background-color: #FFFFFF;
+  color: #1C1410;
+  border: 1px solid #C8BDA0;
+}
+
+.facebook-login-button {
+  background-color: #1877F2;
+  color: #FFFFFF;
+  border: 1px solid #1877F2;
+}
+
+
 .divider-container {
-  width: 448px;
+  width: 100%;
   gap: 12px;
 }
 
@@ -103,15 +159,117 @@ color: #FFFFFF;
 .divider-text {
   margin: 0;
   color: #8B3A1A;
+  font-size: 14px;
 }
-.login-text{
-    font-size: 14px;
-    color: #6B5740;
-}
-.login-button{
-    border:none;
-     background-color: #F5F0E8;
-     font-size: 14px;
-    color: #8B3A1A
 
+.login-text {
+  font-size: 14px;
+  color: #6B5740;
+  text-align: center;
 }
+
+.login-button {
+  border: none;
+  background-color: #F5F0E8;
+  font-size: 14px;
+  color: #8B3A1A;
+  padding: 0;
+}
+
+
+
+   /* MOBILE: màn hình <= 448px */
+
+@media screen and (max-width: 448px) {
+
+  .container-fluid {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  
+  .title {
+    margin-top: 30px !important;
+    margin-bottom: 25px !important;
+  }
+
+  .title h1 {
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+ 
+  .content {
+    width: 100%;
+    max-width: none;
+  }
+
+  .content form {
+    width: 100%;
+  }
+
+  .input-label {
+    font-size: 13px;
+    line-height: 18px;
+  }
+
+
+  .input-field {
+    width: 100%;
+    height: 44px;
+    font-size: 14px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+
+  .password-wrapper .input-field {
+    padding-right: 40px;
+  }
+
+  .password-wrapper > i {
+    right: 12px;
+    font-size: 15px;
+  }
+
+  .agreement {
+    gap: 7px;
+  }
+
+  .agreement-text {
+    font-size: 12px;
+    line-height: 18px;
+  }
+
+
+  .register-button,
+  .google-login-button,
+  .facebook-login-button {
+    width: 100%;
+    height: 44px;
+    font-size: 13px;
+  }
+
+
+  .divider-container {
+    width: 100%;
+    gap: 10px;
+  }
+
+  .divider-text {
+    font-size: 13px;
+  }
+
+ 
+  .login-text,
+  .login-button
+  {
+    font-size: 13px;
+  }
+
+  
+}
+
+
+
+  
