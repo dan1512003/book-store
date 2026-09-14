@@ -1,1 +1,103 @@
-<p>header works!</p>
+<div class="container-fluid d-flex flex-column p-0">
+  <div class="support-information d-flex flex-row justify-content-center align-items-center">
+    Miễn phí giao hàng cho đơn từ 250.000₫ · Đổi trả trong 7 ngày · Hỗ trợ: 1800-9090
+  </div>
+  <div class="header justify-content-between">
+ <!-- bander -->
+     <div class="header-banner d-flex flex-column">
+     <h1>BOOK STORE</h1>
+     <P>Thế giới sách</P>
+  </div>
+<!-- sẻach -->
+ <div class="header-search">
+        <input
+          class="input-field"
+          placeholder="Tìm kiếm sách,tác giả,thể loại... "
+        >
+
+        <i class="fa-solid fa-magnifying-glass"></i>
+      </div>
+
+      <!-- action -->
+       <div class="header-action d-flex flex-row">
+
+        <!-- Yêu thích -->
+<button class="header-favorite">
+  <i class="fa-regular fa-heart"></i>
+  <span>Yêu thích</span>
+</button>
+
+<!-- Giỏ hàng -->
+<button class="header-cart">
+  <i class="fa-solid fa-cart-shopping"></i>
+  <span>Giỏ hàng</span>
+</button>
+
+<!-- Đăng nhập -->
+<button class="header-login">
+  Đăng nhập
+       </button>
+  </div>
+</div>
+ <hr class="divider">
+<div class="menu">
+    
+<button
+  class="menu-home"
+  (click)="activeMenu = 'home'"
+>
+  Trang chủ
+  <span
+    class="menu-indicator"
+    [class.show]="activeMenu === 'home'"
+  ></span>
+</button>
+
+<button
+  class="menu-new-books"
+  (click)="activeMenu = 'new-books'"
+>
+  Sách mới
+  <span
+    class="menu-indicator"
+    [class.show]="activeMenu === 'new-books'"
+  ></span>
+</button>
+
+<button
+  class="menu-category"
+  (click)="activeMenu = 'category'"
+>
+  Thể loại
+  <span
+    class="menu-indicator"
+    [class.show]="activeMenu === 'category'"
+  ></span>
+</button>
+
+<button
+  class="menu-best-seller"
+  (click)="activeMenu = 'best-seller'"
+>
+  Bán chạy
+  <span
+    class="menu-indicator"
+    [class.show]="activeMenu === 'best-seller'"
+  ></span>
+</button>
+
+<button
+  class="menu-promotion"
+  (click)="activeMenu = 'promotion'"
+>
+  Khuyến mãi
+  <span
+    class="menu-indicator"
+    [class.show]="activeMenu === 'promotion'"
+  ></span>
+</button>
+
+
+
+</div>
+</div>
