@@ -1,13 +1,119 @@
+<div class="side-overlay"
+ [class.open]="isSideNavOpen"
+></div>
+
+<div class="side-nav"
+ [class.open]="isSideNavOpen"
+>
+  <div class="side-nav-top">
+    <div class="side-nav-title">
+    <h1>Book store </h1>
+    <p>Thế giới sách</p>
+    </div>
+    <div class="side-nav-button">
+      <button 
+      (click)="closeSideNav()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+  </div>
+<div class="side-nav-item">
+ <button
+  class="side-nav-item-button"
+  [class.active]="activeItem === 'home'"
+  (click)="setActive('home')"
+>
+  <span class="active-line"></span>
+  Trang chủ
+</button>
+
+<button
+  class="side-nav-item-button"
+  [class.active]="activeItem === 'new-books'"
+  (click)="setActive('new-books')"
+>
+  <span class="active-line"></span>
+  Sách mới
+</button>
+
+<button
+  class="side-nav-item-button"
+  [class.active]="activeItem === 'category'"
+  (click)="setActive('category')"
+>
+  <span class="active-line"></span>
+  Thể loại
+</button>
+
+<button
+  class="side-nav-item-button"
+  [class.active]="activeItem === 'bestseller'"
+  (click)="setActive('bestseller')"
+>
+  <span class="active-line"></span>
+  Bán chạy
+</button>
+
+<button
+  class="side-nav-item-button"
+  [class.active]="activeItem === 'promotion'"
+  (click)="setActive('promotion')"
+>
+  <span class="active-line"></span>
+  Khuyến mãi
+</button>
+
+  
+</div>
+ <div class="side-nav-bottom">
+
+  <button class="side-nav-bottom-login">
+  Đăng nhập
+       </button>
+       <button class="side-nav-bottom-register">
+  Đăng ký
+       </button>
+ </div>
+</div>
+
+
 <div class="container-fluid d-flex flex-column p-0">
   <div class="support-information d-flex flex-row justify-content-center align-items-center">
     Miễn phí giao hàng cho đơn từ 250.000₫ · Đổi trả trong 7 ngày · Hỗ trợ: 1800-9090
   </div>
+ <div class="support-information-responsive">
+   Freeship đơn từ 250k · Hỗ trợ: 1800-9090
+  </div>
+  <div class="search"
+   [class.open]="isSearchOpen"
+  >
+ <input
+          class="input-field"
+          placeholder="Tìm kiếm sách,tác giả,thể loại... "
+        >
+
+        <i  class="fa-solid fa-x" (click)="closeSearch()"></i>
+
+    
+  </div>
   <div class="header justify-content-between">
+
+   
  <!-- bander -->
-     <div class="header-banner d-flex flex-column">
+  <div class="header-top">
+     <div
+  class="header-menu"
+  (click)="openSideNav()"
+>
+  <i class="fa-solid fa-bars"></i>
+</div>
+<div class="header-banner">
+      
      <h1>BOOK STORE</h1>
      <P>Thế giới sách</P>
   </div>
+  </div>
+     
 <!-- sẻach -->
  <div class="header-search">
         <input
@@ -21,6 +127,11 @@
       <!-- action -->
        <div class="header-action d-flex flex-row">
 
+        <button class="button-search"
+        (click)="openSearch()">
+  <i class="fa-solid fa-magnifying-glass"></i>
+ 
+</button>
         <!-- Yêu thích -->
 <button class="header-favorite">
   <i class="fa-regular fa-heart"></i>
@@ -39,8 +150,9 @@
        </button>
   </div>
 </div>
- <hr class="divider">
-<div class="menu">
+
+<div class="header-bottom">
+  <div class="menu">
     
 <button
   class="menu-home"
@@ -99,5 +211,6 @@
 
 
 
+</div>
 </div>
 </div>
