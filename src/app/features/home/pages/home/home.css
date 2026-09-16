@@ -698,3 +698,235 @@ background-color: #8B3A1A;
   color: #C8BDA0;
   text-decoration: line-through;
 }
+.home-customer-reviews{
+  display: flex;
+  width: 100%;
+flex-direction: column;
+  padding-bottom: 56px;
+  padding-top: 56px;
+  background-color: #1C1410;
+}
+.home-customer-reviews>div{
+    display: flex;
+    flex-direction: column;
+   width: 100%;
+    max-width: 1280px;
+  margin: 0 auto;
+ padding-left: 24px;
+  padding-right: 24px;
+
+}
+.home-customer-reviews-heading{
+   display: flex;
+   width: 100%;
+   flex-direction: column;
+  
+ 
+}
+.home-customer-reviews-subtitle{
+  display: flex;
+  width: 100%;
+    color: #C4812A;
+  line-height: 16px;
+  font-size: 12px;
+  font-family: "DM Mono", serif;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  justify-content: center;
+  align-items: center;
+ 
+  padding: 0;
+  margin: 0;
+}
+.home-customer-reviews-title{
+  display: flex;
+  width: 100%;
+    color: #FAF7F0;
+  line-height: 32px;
+  font-size: 24px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+
+  justify-content: center;
+  align-items: center;
+}
+.home-customer-reviews-content{
+   display: flex;
+    gap: 20px;
+  flex-direction: row;
+ 
+}
+.home-customer-reviews-item{
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  border-radius: 2px;
+  padding: 20px 20px 20px 20px;
+ background-color: rgba(250, 247, 240, 0.06);
+border: 2px solid rgba(200, 189, 160, 0.2);
+  border-radius: 2px;
+  
+}
+
+.home-customer-reviews-rating{
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+}
+
+.home-customer-reviews-rating  >span{
+  line-height: 19.5px;
+  font-size: 13px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #C4812A;
+}
+.home-customer-reviews-text{
+  flex: 1;
+   line-height: 22.8px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #C8BDA0;
+}
+.home-customer-reviews-customer{
+  height: 36px;
+  display: flex;
+  flex-direction: row;
+  gap:12px
+}
+.home-customer-reviews-avatar {
+  display: flex;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #8B3A1A;
+align-items: center;
+justify-content: center;
+     color: #FAF7F0;
+  font-family: "Lora", serif;
+  line-height: 20px;
+  font-weight: 700;
+  font-size: 14px;
+
+   
+}
+.home-customer-reviews-info{
+  height: 36;
+  display: flex;
+  flex-direction: column;
+}
+.home-customer-reviews-name{
+
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #FAF7F0;
+ 
+}
+.home-customer-reviews-city{
+ line-height: 12px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #6B5740;
+}
+.home-subscribe-offer{
+display: flex;
+  width: 100%;
+  padding-bottom: 48px;
+  padding-top: 48px;
+
+}
+
+.home-subscribe-offer>div{
+    display: flex;
+    flex-direction: column;
+   width: 100%;
+    max-width: 576px;
+  margin: 0 auto;
+ padding-left: 24px;
+  padding-right: 24px;
+
+
+}
+.home-subscribe-offer-heading{
+   display: flex;
+   width: 100%;
+   flex-direction: column;
+  
+
+}
+.home-subscribe-offer-subtitle{
+  display: flex;
+  width: 100%;
+    color: #C4812A;
+  line-height: 16px;
+  font-size: 12px;
+  font-family: "DM Mono", serif;
+  font-weight: 400;
+  letter-spacing: 1.2px;
+  justify-content: center;
+  align-items: center;
+ 
+  padding: 0;
+  margin: 0;
+}
+.home-subscribe-offer-title{
+  display: flex;
+  width: 100%;
+    color: #1C1410;
+  line-height: 32px;
+  font-size: 24px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+
+  justify-content: center;
+  align-items: center;
+}
+.home-subscribe-offer-description{
+  display: flex;
+  width: 100%;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #6B5740;
+  justify-content: center;
+  align-items: center;
+
+}
+.home-subscribe-offer-form{
+  display: flex;
+  flex-direction: row;
+  height: 45px;
+  gap: 8px;
+}
+.home-subscribe-offer-input {
+    flex: 1;
+    height: 45px;
+    padding: 10px 16px 10px 16px;
+    background-color: #FAF7F0;
+    border: 1px solid #C8BDA0;
+    outline: none;
+    font-size: 14px;
+    border-radius: 2px;
+}
+
+.home-subscribe-offer-button{
+   width: 97px;
+  height: 48px;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  letter-spacing: 0.35px;
+  color: #FAF7F0;
+  border: none;
+   background-color: #8B3A1A;
+   border-radius: 2px;
+}
+.home-subscribe-offer-input:focus {
+    outline: 2px solid #8B3A1A;
+}
