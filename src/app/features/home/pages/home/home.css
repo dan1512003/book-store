@@ -781,14 +781,23 @@ border: 2px solid rgba(200, 189, 160, 0.2);
   font-weight: 400;
   color: #C4812A;
 }
-.home-customer-reviews-text{
+.home-customer-reviews-text {
   flex: 1;
-   line-height: 22.8px;
+  line-height: 22.8px;
   font-size: 14px;
   font-family: "Source Sans 3", sans-serif;
   font-weight: 400;
   color: #C8BDA0;
+
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  overflow: hidden;
 }
+
+
+
 .home-customer-reviews-customer{
   height: 36px;
   display: flex;
