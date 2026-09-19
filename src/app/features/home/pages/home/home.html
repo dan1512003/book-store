@@ -13,11 +13,12 @@
 </p>
  <div class="home-banner-action">
 
-  <button class="home-banner-explore">
-  Đăng nhập
+  <button class="home-banner-explore"
+  >
+  Khám Phá Ngay
        </button>
        <button class="home-banner-promotion">
-  Đăng ký
+  Xem Khuyến Mãi
        </button>
  </div>
  <div class="home-banner-review">
@@ -52,7 +53,9 @@
   <a>Xem thêm →</a>
 </div>
 <div class="home-popular-book-content">
-<div class="home-popular-book-card">
+<div class="home-popular-book-card"
+(click)="goToBookDetail()"
+>
     <div class="home-popular-book-image">
       
         <img src="\assets\images\books\ba-ga-cung-thuyen-chua-ke-con-cho.webp" alt="Tên sách">
@@ -644,14 +647,7 @@
 <div class="home-customer-reviews-wrapper">
 
  
-  <button
-    type="button"
-    class="review-scroll-left"
-    [class.is-hidden]="!showScrollLeft"
-    (click)="scrollReviews('left')"
-    >
-    <i class="fa-solid fa-chevron-left"></i>
-  </button>
+
 
  
   <div
@@ -756,15 +752,32 @@
   </div>
 
 
-  
+  <div
+  class="review-scroll-buttons"
+  [class.is-hidden]="!showScrollLeft && !showScrollRight"
+  >
+
+  <button
+    type="button"
+    class="review-scroll-left"
+    [class.is-hidden]="!showScrollLeft"
+    (click)="scrollReviews('left')"
+  >
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
   <button
     type="button"
     class="review-scroll-right"
     [class.is-hidden]="!showScrollRight"
     (click)="scrollReviews('right')"
-    >
+  >
     <i class="fa-solid fa-chevron-right"></i>
   </button>
+
+</div>
+
+  
 
 </div>
 

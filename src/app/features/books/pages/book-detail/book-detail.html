@@ -1,1 +1,321 @@
-<p>book-detail works!</p>
+<div class="container-fluid d-flex flex-column p-0">
+<section class="book-detail-header">
+    <div class="book-detail-breadcrumb">
+    <span>Trang chủ</span>
+    <span>></span>
+    <span>Văn học</span>
+    <span>></span>
+    <span>Ba gã cùng thuyền</span>
+    
+</div>
+</section>
+
+<section class="book-detail-book">
+    <div class="book-detail-book-content">
+<div class="book-detail-cover">
+ <div class="book-detail-cover-main">
+   <button
+    class="book-detail-cover-main-prev"
+    (click)="previousImage()"
+  >
+    <i class="fa-solid fa-chevron-left"></i>
+  </button>
+
+  <button
+    class="book-detail-cover-main-next"
+    (click)="nextImage()"
+  >
+    <i class="fa-solid fa-chevron-right"></i>
+  </button>
+  <div class="book-detail-cover-main-counter">
+  <p>{{ selectedImageIndex + 1 }}/{{ images.length }}</p>
+</div>
+  <img
+    [src]="images[selectedImageIndex]"
+    alt=""
+  >
+
+ 
+</div>
+
+
+
+ <div class="book-detail-cover-thumbnails">
+    
+ 
+
+<div class="book-detail-cover-thumbnails-img">
+  @for (image of images; track $index) {
+    <!-- 1. Hiển thị các ảnh thường trước ô cuối cùng -->
+    @if ($index < maxVisible - 1) {
+      <button
+        type="button"
+        [class.active]="selectedImageIndex === $index"
+        (click)="selectImage($index)"
+      >
+        <img [src]="image" alt="">
+      </button>
+    } 
+
+    <!-- 2. Ô ảnh cuối cùng chứa Overlay (+N) -->
+    @else if ($index === maxVisible - 1) {
+      <button
+        type="button"
+        [class.has-more]="images.length > maxVisible"
+        [class.active]="selectedImageIndex >= maxVisible - 1"
+        (click)="selectImage($index)"
+      >
+        <img [src]="image" alt="">
+
+        @if (images.length > maxVisible) {
+          <span class="more-overlay">+{{ images.length - (maxVisible - 1) }}</span>
+        }
+      </button>
+    }
+  }
+</div>
+
+</div>
+
+ <!-- <div class="book-detail-cover-counter">
+  <p>{{ selectedImageIndex + 1 }}/{{ images.length }}</p>
+</div> -->
+</div>
+
+
+ <div class="book-detail-book-content-info">
+
+ 
+  <div class="book-detail-info-header">
+    <p class="book-detail-info-category">
+      Văn học
+    </p>
+
+    <h1 class="book-detail-info-title">
+      Ba Gã Cùng Thuyền (Chưa Kể Con Chó)
+    </h1>
+
+    <p class="book-detail-info-author">
+      <label>Tác giả:</label>
+      Jerome K. Jerome
+    </p>
+  </div>
+
+
+ 
+  <div class="book-detail-info-rating">
+
+   
+      <div class="book-detail-info-stars">
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+        <span>★</span>
+      </div>
+
+    <span class="book-detail-info-rating-number">
+    4.8
+  </span>
+
+  <span class="book-detail-info-rating-count">
+    (3,200 lượt đánh giá)
+  </span>
+
+
+<div class="book-detail-info-sold">
+  <span >
+  Đã bán 3,200
+</span>
+</div>
+
+
+
+  </div>
+
+
+ 
+  <div class="book-detail-info-price">
+
+    <span class="book-detail-info-price-current">
+      68.000₫
+    </span>
+
+    <span class="book-detail-info-price-original">
+      85.000₫
+    </span>
+
+    <span class="book-detail-info-price-discount">
+      -20%
+    </span>
+
+  </div>
+
+
+
+  <div class="book-detail-info-meta">
+
+    <div class="book-detail-info-meta-item">
+      <span class="book-detail-info-meta-label">
+        NXB:
+      </span>
+      <span class="book-detail-info-meta-value">
+        NXB Hội Nhà Văn
+      </span>
+    </div>
+
+    <div class="book-detail-info-meta-item">
+      <span class="book-detail-info-meta-label">
+        Năm XB:
+      </span>
+      <span class="book-detail-info-meta-value">
+        2023
+      </span>
+    </div>
+
+    <div class="book-detail-info-meta-item">
+      <span class="book-detail-info-meta-label">
+        Số trang:
+      </span>
+      <span class="book-detail-info-meta-value">
+        228
+      </span>
+    </div>
+
+    <div class="book-detail-info-meta-item">
+      <span class="book-detail-info-meta-label">
+        Ngôn ngữ:
+      </span>
+      <span class="book-detail-info-meta-value">
+        Tiếng Việt
+      </span>
+    </div>
+
+  </div>
+
+
+
+  
+
+ 
+  <div class="book-detail-info-actions">
+<div class="book-detail-info-quantity">
+
+    <span class="book-detail-info-quantity-label">
+      Số lượng:
+    </span>
+
+    <div class="book-detail-info-quantity-control">
+      <button class="book-detail-info-quantity-minus">
+        -
+      </button>
+
+      <span class="book-detail-info-quantity-value">
+        1
+      </span>
+
+      <button class="book-detail-info-quantity-plus">
+        +
+      </button>
+    </div>
+
+  </div>
+
+  <div class="book-detail-info-cart-group">
+  <button class="book-detail-info-cart">
+    Thêm Vào Giỏ Hàng
+  </button>
+
+  <button class="book-detail-info-wishlist">
+    ♡
+  </button>
+</div>
+
+    <button class="book-detail-info-buy">
+      Mua Ngay
+    </button>
+
+  </div>
+
+
+
+  <div class="book-detail-info-policies">
+
+    <div class="book-detail-info-policy">
+      <span class="book-detail-info-policy-icon">🚚</span>
+      <span class="book-detail-info-policy-text">
+        Miễn phí giao hàng cho đơn từ 250.000₫
+      </span>
+    </div>
+
+    <div class="book-detail-info-policy">
+      <span class="book-detail-info-policy-icon">🔄</span>
+      <span class="book-detail-info-policy-text">
+        Đổi trả miễn phí trong 7 ngày
+      </span>
+    </div>
+
+    <div class="book-detail-info-policy">
+      <span class="book-detail-info-policy-icon">✅</span>
+      <span class="book-detail-info-policy-text">
+        Cam kết sách chính hãng 100%
+      </span>
+    </div>
+
+  </div>
+
+</div>
+
+</div>
+
+</section>
+
+<section class="book-detail-overview">
+  <div class="book-detail-overview-menu">
+   <button
+  class="book-detail-overview-menu-description"
+  [class.active]="activeTab === 'description'"
+  (click)="changeTab('description')"
+>
+  Mô tả Sách
+  <span class="book-detail-overview-menu-indicator"></span>
+</button>
+
+<button
+  class="book-detail-overview-menu-information"
+  [class.active]="activeTab === 'information'"
+  (click)="changeTab('information')"
+>
+  Thông Tin Chi Tiết
+  <span class="book-detail-overview-menu-indicator"></span>
+</button>
+
+<button
+  class="book-detail-overview-menu-reviews"
+  [class.active]="activeTab === 'reviews'"
+  (click)="changeTab('reviews')"
+>
+  Đánh giá (2)
+  <span class="book-detail-overview-menu-indicator"></span>
+</button>
+
+  </div>
+
+  <div class="book-detail-overview-content">
+    @if (activeTab === 'information') {
+      <app-book-detail-overview-information />
+    }
+    @if (activeTab === 'description') {
+      <app-book-detail-overview-description />
+    }
+
+    
+
+    @if (activeTab === 'reviews') {
+      <app-book-detail-overview-reviews />
+    }
+  </div>
+</section>
+
+
+</div>

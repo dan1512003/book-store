@@ -6,6 +6,8 @@ import {
   ViewChild,
   afterNextRender
 } from '@angular/core';
+import { Router } from '@angular/router';
+
 
 @Component({
   imports: [],
@@ -23,28 +25,42 @@ export class Home implements AfterViewInit {
 
   private resizeObserver?: ResizeObserver;
 
-  constructor() {
+  constructor(private router: Router) {
+   
     afterNextRender(() => {
       this.updateScrollButtons();
+      this.initResizeObserver();
     });
   }
 
+ goToBookDetail() {
+  
+    this.router.navigate(['/book-detail']);
+  }  
   ngAfterViewInit(): void {
+    this.updateScrollButtons();
+  }
 
+  private initResizeObserver(): void {
     const container = this.reviewsContent?.nativeElement;
 
     if (!container) {
       return;
     }
 
-    this.updateScrollButtons();
+  
+    if (typeof ResizeObserver === 'undefined') {
+      return;
+    }
 
     this.resizeObserver = new ResizeObserver(() => {
       this.updateScrollButtons();
     });
 
+   
     this.resizeObserver.observe(container);
 
+   
     Array.from(container.children).forEach(child => {
       this.resizeObserver?.observe(child);
     });
@@ -60,7 +76,6 @@ export class Home implements AfterViewInit {
   }
 
   updateScrollButtons(): void {
-
     if (!this.reviewsContent) {
       return;
     }
@@ -86,7 +101,6 @@ export class Home implements AfterViewInit {
   }
 
   scrollReviews(direction: 'left' | 'right'): void {
-
     if (!this.reviewsContent) {
       return;
     }
@@ -95,7 +109,7 @@ export class Home implements AfterViewInit {
 
     const item = container.querySelector(
       '.home-customer-reviews-item'
-    ) as HTMLElement;
+    ) as HTMLElement | null;
 
     if (!item) {
       return;
@@ -113,5 +127,11 @@ export class Home implements AfterViewInit {
         : -scrollAmount,
       behavior: 'smooth'
     });
+  }
+
+ 
+
+  ngOnDestroy(): void {
+    this.resizeObserver?.disconnect();
   }
 }

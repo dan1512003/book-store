@@ -1,0 +1,56 @@
+<div
+  #descriptionContainer
+  class="book-detail-overview-description"
+  [class.is-expanded]="isDescriptionExpanded"
+>
+
+
+  <div class="description-content">
+
+  
+    <p>
+      Nhờ đó, độc giả có thể ngấu nghiến từng câu từng chữ những câu chuyện
+      ly kỳ hấp dẫn mà gã J. ấy đã vui lòng kể lại, có thể xuýt xoa trước tầng
+      tầng lớp lớp kiến thức văn hóa, lịch sử, địa lý trong tác phẩm, có thể
+      tấm tắc trước văn phong, có thể cười lăn trước những chi tiết khôn lường,
+      có thể vỗ đùi đánh đét mà ngưỡng mộ văn tài của tác giả.
+    </p>
+
+    <p>
+      Và, xin nhắc độc giả rằng, đây không phải một câu chuyện, đây là bản
+      tường thuật chân thực không thể bỏ lỡ về một chuyến du hành sông nước
+      “độc nhất vô nhị”…
+    </p>
+
+    <p>
+      Jerome Klapka Jerome sinh năm 1859 ở Walsall, Staffordshire, là con trai
+      của một chủ tiệm kim khí không mấy thành đạt. Ông lớn lên ở Luân Đôn và
+      theo học trường Trung học Marelybone. Năm 14 tuổi, ông làm nhân viên nhà
+      ga xe lửa, sau đó làm giáo viên, diễn viên và nhà báo. Jerome đã có hai
+      bài xã luận mang đậm tính hài hước trước khi cuốn Ba gã cùng thuyền của
+      ông được xuất bản năm 1889.
+    </p>
+
+    <p>
+      Năm 1990, Jerome xuất bản cuốn Three man in a bummel (Tạm dịch: Ba gã
+      dạo chơi), kể tiếp về chuyến đi bộ của ba nhân vật chính đến nước Đức.
+      Ngoài ra, ông cũng viết một số vở kịch có phong cách gần giống với phong
+      cách của bạn mình - nhà văn J.M.Barrie.
+    </p>
+
+  </div>
+
+@if (showViewMore) {
+    <div
+      class="view-more"
+      
+    >
+      <button type="button" (click)="toggleDescription()">
+        {{ isDescriptionExpanded ? 'Rút gọn' : 'Xem Thêm' }}
+      </button>
+    </div>
+  }
+  
+  
+
+</div>

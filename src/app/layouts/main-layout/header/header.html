@@ -67,10 +67,14 @@
 </div>
  <div class="side-nav-bottom">
 
-  <button class="side-nav-bottom-login">
+  <button class="side-nav-bottom-login"
+  (click)="goToLogin()"
+  >
   Đăng nhập
        </button>
-       <button class="side-nav-bottom-register">
+       <button class="side-nav-bottom-register"
+       (click)="goToRegister()"
+       >
   Đăng ký
        </button>
  </div>
@@ -145,7 +149,9 @@
 </button>
 
 <!-- Đăng nhập -->
-<button class="header-login">
+<button class="header-login"
+(click)="goToLogin()"
+>
   Đăng nhập
        </button>
   </div>

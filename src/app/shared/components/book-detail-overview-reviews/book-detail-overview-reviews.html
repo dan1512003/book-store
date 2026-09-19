@@ -1,0 +1,152 @@
+<div
+ #reviewsContainer
+ class="book-detail-overview-reviews"
+ [class.is-expanded]="isReviewsExpanded"
+>
+
+<div class="book-detail-overview-reviews-rating">
+  <div class="book-detail-overview-reviews-rating-summary">
+  <div class="book-detail-overview-reviews-rating-summary-center">
+      <p class="book-detail-overview-reviews-rating-score">4.8</p>
+
+    <div class="book-detail-overview-reviews-rating-stars">
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+    </div>
+
+    <p class="book-detail-overview-reviews-rating-count">
+      2,800 đánh giá
+    </p>
+  </div>
+  </div>
+
+  <div class="book-detail-overview-reviews-rating-breakdown">
+    <div class="book-detail-overview-reviews-rating-row">
+  <span class="book-detail-overview-reviews-rating-star-count">5</span>
+<span class="book-detail-overview-reviews-rating-star-icon">★</span>
+
+
+      <div class="book-detail-overview-reviews-rating-bar">
+        <div class="book-detail-overview-reviews-rating-bar-fill"></div>
+      </div>
+
+      <span class="book-detail-overview-reviews-rating-percent">72%</span>
+    </div>
+<div class="book-detail-overview-reviews-rating-row">
+
+  <span class="book-detail-overview-reviews-rating-star-count">4</span>
+<span class="book-detail-overview-reviews-rating-star-icon">★</span>
+
+
+      <div class="book-detail-overview-reviews-rating-bar">
+        <div class="book-detail-overview-reviews-rating-bar-fill"></div>
+      </div>
+
+      <span class="book-detail-overview-reviews-rating-percent">20%</span>
+    </div>
+
+    <div class="book-detail-overview-reviews-rating-row">
+  <span class="book-detail-overview-reviews-rating-star-count">3</span>
+<span class="book-detail-overview-reviews-rating-star-icon">★</span>
+
+
+      <div class="book-detail-overview-reviews-rating-bar">
+        <div class="book-detail-overview-reviews-rating-bar-fill"></div>
+      </div>
+
+      <span class="book-detail-overview-reviews-rating-percent">5%</span>
+    </div>
+
+    <div class="book-detail-overview-reviews-rating-row">
+  <span class="book-detail-overview-reviews-rating-star-count">2</span>
+<span class="book-detail-overview-reviews-rating-star-icon">★</span>
+
+
+      <div class="book-detail-overview-reviews-rating-bar">
+        <div class="book-detail-overview-reviews-rating-bar-fill"></div>
+      </div>
+
+      <span class="book-detail-overview-reviews-rating-percent">3%</span>
+    </div>
+    <div class="book-detail-overview-reviews-rating-row">
+  <span class="book-detail-overview-reviews-rating-star-count">1</span>
+<span class="book-detail-overview-reviews-rating-star-icon">★</span>
+
+
+      <div class="book-detail-overview-reviews-rating-bar">
+        <div class="book-detail-overview-reviews-rating-bar-fill"></div>
+      </div>
+
+      <span class="book-detail-overview-reviews-rating-percent">3%</span>
+    </div>
+  </div>
+</div>
+
+<div class="book-detail-overview-custormer-reviews">
+
+   <div  class="book-detail-overview-custormer-reviews-rating"> 
+    <div class="book-detail-overview-custormer-reviews-rating-avatar">
+          N
+        </div>
+
+        <div class="book-detail-overview-custormer-reviews-rating-info">
+          <div class="book-detail-overview-custormer-reviews-rating-name">
+            Nguyễn Văn A
+          </div>
+
+          <div class="book-detail-overview-custormer-reviews-rating-time">
+            Hà Nội
+          </div>
+        </div>
+       <div class="book-detail-overview-custormer-reviews-rating-stars">
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+    </div>
+    </div> 
+
+    <p class="book-detail-overview-custormer-reviews-rating-commit"> Sách hay, giao hàng nhanh. Sẽ tiếp tục mua ủng hộ shop!</p>
+</div>
+<div class="book-detail-overview-custormer-reviews">
+
+   <div  class="book-detail-overview-custormer-reviews-rating"> 
+    <div class="book-detail-overview-custormer-reviews-rating-avatar">
+          N
+        </div>
+
+        <div class="book-detail-overview-custormer-reviews-rating-info">
+          <div class="book-detail-overview-custormer-reviews-rating-name">
+            Nguyễn Văn A
+          </div>
+
+          <div class="book-detail-overview-custormer-reviews-rating-time">
+            Hà Nội
+          </div>
+        </div>
+       <div class="book-detail-overview-custormer-reviews-rating-stars">
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+      <span>★</span>
+    </div>
+    </div> 
+
+    <p class="book-detail-overview-custormer-reviews-rating-commit"> Sách hay, giao hàng nhanh. Sẽ tiếp tục mua ủng hộ shop!</p>
+</div>
+ @if (showViewMore) {
+    <div
+      class="view-more"
+
+    >
+      <button type="button" (click)="toggleReviews()">
+        {{ isReviewsExpanded? 'Rút gọn' : 'Xem Thêm' }}
+      </button>
+    </div>
+  }
+</div>

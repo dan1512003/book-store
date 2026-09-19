@@ -1,0 +1,92 @@
+.book-detail-overview-informations{
+position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-width: 768px;
+    padding: 24px 0px;
+
+      max-height: 300px;
+  overflow: hidden;
+
+}
+.book-detail-overview-informations.is-expanded {
+  height: 100%;
+  max-height: none;
+
+}
+
+
+.book-detail-overview-informations.is-expanded .view-more {
+  position: relative;
+  bottom: auto;
+  left: auto;
+  width: 100%;
+  height: auto;
+  padding: 0;
+  background: none;
+}
+/* .book-detail-overview-information-table {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-collapse: collapse;
+} */
+.book-detail-overview-information-content>tr{
+    height: 45px;
+
+}
+.book-detail-overview-information-content > tr > td {
+  border-bottom: 1px solid #C8BDA0;
+
+}
+.book-detail-overview-information-content > tr:last-child > td {
+  border-bottom: none;
+
+}
+.book-detail-overview-information-content-label{
+    width: 160px;
+        line-height: 20px;
+   font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
+  color: #6B5740;
+
+}
+.book-detail-overview-information-content-value{
+        line-height: 20px;
+   font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #1C1410;
+
+}
+.view-more{
+  position: absolute;
+  z-index: 10;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 50px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+
+  padding-bottom: 10px;
+
+  background: linear-gradient(
+    to bottom,
+    transparent 0%,
+    rgba(255, 255, 255, 0.8) 50%,
+    #fff 100%
+  );
+}
+.view-more>button{
+ border: none;
+ background-color: transparent;
+    line-height: 20px;
+   font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #8B3A1A;
+}
