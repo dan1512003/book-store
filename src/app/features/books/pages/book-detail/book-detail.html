@@ -1,4 +1,124 @@
+@if (isGalleryOpen) {
+  <div class="gallery-overlay">
+
+ 
+    <div class="gallery-header">
+
+      <p class="gallery-counter">
+        {{ selectedImageIndex + 1 }}/{{ images.length }}
+      </p>
+
+      <button
+        type="button"
+        class="gallery-close"
+        (click)="closeGallery()"
+        aria-label="Đóng gallery"
+      >
+        <i class="fa-solid fa-xmark"></i>
+      </button>
+
+    </div>
+
+
+    <div class="gallery-main">
+
+  
+      <button
+        type="button"
+        class="gallery-main-prev"
+        [disabled]="selectedImageIndex === 0"
+        (click)="previousImage()"
+       
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+
+   
+      <img
+        class="gallery-image"
+        [src]="images[selectedImageIndex]"
+        alt="Ảnh sách"
+      />
+
+
+
+      <button
+        type="button"
+        class="gallery-main-next"
+        [disabled]="selectedImageIndex === images.length - 1"
+        (click)="nextImage()"
+      
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+    </div>
+
+
+    <div class="gallery-thumbnails">
+
+   
+      <button
+        type="button"
+        class="gallery-prev"
+        [class.hidden]="!hasScroll"
+    
+        (click)="scrollThumbnailsContent('left')"
+      
+      >
+        <i class="fa-solid fa-chevron-left"></i>
+      </button>
+
+
+  
+      <div
+        #thumbnailsContent
+        class="gallery-thumbnail-list"
+        (scroll)="onThumbnailsScroll()"
+      >
+
+        @for (image of images; track $index) {
+
+          <button
+            type="button"
+            class="gallery-thumbnail"
+            [class.active]="selectedImageIndex === $index"
+            (click)="selectImage($index)"
+          >
+
+            <img
+              [src]="image"
+              [alt]="'Ảnh sách ' + ($index + 1)"
+            />
+
+          </button>
+
+        }
+
+      </div>
+
+
+
+      <button
+        type="button"
+        class="gallery-next"
+        [class.hidden]="!hasScroll"
+      
+        (click)="scrollThumbnailsContent('right')"
+       
+      >
+        <i class="fa-solid fa-chevron-right"></i>
+      </button>
+
+    </div>
+
+  </div>
+}
+
+
 <div class="container-fluid d-flex flex-column p-0">
+
 <section class="book-detail-header">
     <div class="book-detail-breadcrumb">
     <span>Trang chủ</span>
@@ -45,35 +165,51 @@
  
 
 <div class="book-detail-cover-thumbnails-img">
+
   @for (image of images; track $index) {
-    <!-- 1. Hiển thị các ảnh thường trước ô cuối cùng -->
+
+   
     @if ($index < maxVisible - 1) {
+
       <button
         type="button"
         [class.active]="selectedImageIndex === $index"
-        (click)="selectImage($index)"
+        (click)="openGallery($index)"
       >
-        <img [src]="image" alt="">
+        <img
+          [src]="image"
+          alt=""
+        />
       </button>
-    } 
 
-    <!-- 2. Ô ảnh cuối cùng chứa Overlay (+N) -->
+    }
+
+   
     @else if ($index === maxVisible - 1) {
+
       <button
         type="button"
-        [class.has-more]="images.length > maxVisible"
-        [class.active]="selectedImageIndex >= maxVisible - 1"
-        (click)="selectImage($index)"
+        class="has-more"
+        (click)="openGallery($index)"
       >
-        <img [src]="image" alt="">
+        <img
+          [src]="image"
+          alt=""
+        />
 
         @if (images.length > maxVisible) {
-          <span class="more-overlay">+{{ images.length - (maxVisible - 1) }}</span>
+          <span class="more-overlay">
+            +{{ images.length - (maxVisible - 1) }}
+          </span>
         }
       </button>
+
     }
+
   }
+
 </div>
+
 
 </div>
 
@@ -272,7 +408,19 @@
 
 <section class="book-detail-overview">
   <div class="book-detail-overview-menu">
-   <button
+ <button 
+ type="button"
+    class="book-detail-overview-menu-prev"
+    [class.hidden]="!hasMenuScroll"
+    (click)="scrollMenuContent('left')"
+ 
+ > <i class="fa-solid fa-chevron-left"></i></button>
+<div
+#overviewMenuList
+ class="book-detail-overview-menu-list"
+ (scroll)="onMenuScroll()"
+ >
+    <button
   class="book-detail-overview-menu-description"
   [class.active]="activeTab === 'description'"
   (click)="changeTab('description')"
@@ -298,7 +446,13 @@
   Đánh giá (2)
   <span class="book-detail-overview-menu-indicator"></span>
 </button>
-
+</div>
+ <button
+ type="button"
+    class="book-detail-overview-menu-next"
+    [class.hidden]="!hasMenuScroll"
+    (click)="scrollMenuContent('right')"
+ ><i class="fa-solid fa-chevron-right"></i></button>
   </div>
 
   <div class="book-detail-overview-content">
@@ -317,5 +471,125 @@
   </div>
 </section>
 
+<section class="book-detail-related">
+  <h2 class="book-detail-related-title">Sách Liên Quan</h2>
+
+  <div class="book-detail-related-wrapper">
+   
+    <button
+    type="button"
+      class="book-detail-related-prev"
+      [class.hidden]="!hasRelatedScroll"
+      (click)="scrollRelatedContent('left')"
+    
+    >
+      <i class="fa-solid fa-chevron-left"></i>
+    </button>
+
+   
+    <button
+    type="button"
+      class="book-detail-related-next"
+      [class.hidden]="!hasRelatedScroll"
+      (click)="scrollRelatedContent('right')"
+    >
+      <i class="fa-solid fa-chevron-right"></i>
+    </button>
+    
+    <div
+      #relatedContent
+      class="book-detail-related-content"
+  (scroll)="onRelatedScroll()"
+    >
+  
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\ba-ga-cung-thuyen-chua-ke-con-cho.webp" alt="Ba Gã Cùng Thuyền">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">Ba Gã Cùng Thuyền</h3>
+          <p class="book-detail-related-author">Jerome K Jerome</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">77.000đ</span>
+          </div>
+        </div>
+      </div>
+
+  
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\download.webp" alt="Những Tấm Lòng Cao Cả">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">Những Tấm Lòng Cao Cả</h3>
+          <p class="book-detail-related-author">Edmondo De Amicis</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">58.000đ</span>
+            <span class="original-price">80.000đ</span>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\images (1).jpg" alt="Phía Sau Nghi Can X">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">Phía Sau Nghi Can X</h3>
+          <p class="book-detail-related-author">Higashino Keigo</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">97.000đ</span>
+            <span class="original-price">120.000đ</span>
+          </div>
+        </div>
+      </div>
+
+   
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\images (2).jpg" alt="Hắc Miêu Quán">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">Hắc Miêu Quán</h3>
+          <p class="book-detail-related-author">Yukito Ayatsuji</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">95.000đ</span>
+          </div>
+        </div>
+      </div>
+
+    
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\images.jpg" alt="Thép Đã Tôi Thế Đấy">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">Thép Đã Tôi Thế Đấy</h3>
+          <p class="book-detail-related-author">Nikolai A Ostrovsky</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">95.200đ</span>
+            <span class="original-price">136.000đ</span>
+          </div>
+        </div>
+      </div>
+
+     
+      <div class="book-detail-related-card">
+        <div class="book-detail-related-image">
+          <img src="\assets\images\books\NXBTreStoryFull_28052010_030523.jpg" alt="MÁCH VỚI LILKA">
+        </div>
+        <div class="book-detail-related-info">
+          <h3 class="book-detail-related-name">MÁCH VỚI LILKA</h3>
+          <p class="book-detail-related-author">Henrik Lothamer</p>
+          <div class="book-detail-related-price">
+            <span class="current-price">38.000đ</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
 
 </div>

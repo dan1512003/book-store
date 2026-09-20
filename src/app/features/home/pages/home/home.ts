@@ -1,11 +1,14 @@
 import {
   AfterViewInit,
+  ChangeDetectorRef,
   Component,
   ElementRef,
   HostListener,
   ViewChild,
-  afterNextRender
+  afterNextRender,
+  inject
 } from '@angular/core';
+
 import { Router } from '@angular/router';
 
 
@@ -16,20 +19,20 @@ import { Router } from '@angular/router';
   templateUrl: './home.html',
 })
 export class Home implements AfterViewInit {
-
+ private readonly cdr = inject(ChangeDetectorRef);
   @ViewChild('reviewsContent')
   reviewsContent!: ElementRef<HTMLDivElement>;
 
   showScrollLeft = false;
   showScrollRight = false;
 
-  private resizeObserver?: ResizeObserver;
+
 
   constructor(private router: Router) {
    
     afterNextRender(() => {
       this.updateScrollButtons();
-      this.initResizeObserver();
+
     });
   }
 
@@ -41,30 +44,7 @@ export class Home implements AfterViewInit {
     this.updateScrollButtons();
   }
 
-  private initResizeObserver(): void {
-    const container = this.reviewsContent?.nativeElement;
 
-    if (!container) {
-      return;
-    }
-
-  
-    if (typeof ResizeObserver === 'undefined') {
-      return;
-    }
-
-    this.resizeObserver = new ResizeObserver(() => {
-      this.updateScrollButtons();
-    });
-
-   
-    this.resizeObserver.observe(container);
-
-   
-    Array.from(container.children).forEach(child => {
-      this.resizeObserver?.observe(child);
-    });
-  }
 
   onReviewsScroll(): void {
     this.updateScrollButtons();
@@ -72,7 +52,13 @@ export class Home implements AfterViewInit {
 
   @HostListener('window:resize')
   onWindowResize(): void {
-    this.updateScrollButtons();
+
+     requestAnimationFrame(() => {
+
+ this.updateScrollButtons();
+   
+  });
+    
   }
 
   updateScrollButtons(): void {
@@ -98,6 +84,8 @@ export class Home implements AfterViewInit {
 
     this.showScrollRight =
       Math.ceil(scrollLeft + clientWidth) < scrollWidth;
+
+        this.cdr.detectChanges();
   }
 
   scrollReviews(direction: 'left' | 'right'): void {
@@ -131,7 +119,5 @@ export class Home implements AfterViewInit {
 
  
 
-  ngOnDestroy(): void {
-    this.resizeObserver?.disconnect();
-  }
+
 }
