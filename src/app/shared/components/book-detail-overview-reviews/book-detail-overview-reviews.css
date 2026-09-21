@@ -135,6 +135,7 @@
     flex-direction: column;
     gap:2px;
     border: 2px solid  #E8DFC8;
+    background-color: aqua;
 }
 .book-detail-overview-custormer-reviews-rating{
     height: 36px;
@@ -242,3 +243,4 @@
   padding: 0;
   background: none;
 }
+@media screen and (min-width: 95px) and (max-width: 265px) {}
