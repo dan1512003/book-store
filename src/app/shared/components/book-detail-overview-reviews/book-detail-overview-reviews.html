@@ -85,60 +85,677 @@
   </div>
 </div>
 
-<div class="book-detail-overview-custormer-reviews">
+@if (!hasMyReview() || isEditingReview) {
 
-   <div  class="book-detail-overview-custormer-reviews-rating"> 
-    <div class="book-detail-overview-custormer-reviews-rating-avatar">
-          N
+  <div class="book-detail-reviews-form-wrapper">
+
+    <form
+      class="book-detail-reviews-form"
+      (ngSubmit)="submitReview()"
+    >
+
+      <p class="book-detail-reviews-form-heading">
+
+        {{
+          isEditingReview
+            ? 'Chỉnh sửa đánh giá'
+            : 'Viết đánh giá của bạn'
+        }}
+
+      </p>
+
+
+
+      <div class="book-detail-reviews-rating-picker">
+
+        <p class="book-detail-reviews-rating-label">
+          Chọn số sao
+        </p>
+
+
+        <div class="book-detail-reviews-star-list">
+
+          @for (star of stars; track star) {
+
+            <button
+              type="button"
+              class="book-detail-reviews-star-item"
+              [class.active]="
+                star <= (hoverRating || rating)
+              "
+              (mouseenter)="hoverRating = star"
+              (mouseleave)="hoverRating = 0"
+              (click)="selectRating(star)"
+            >
+              ★
+            </button>
+
+          }
+
         </div>
 
-        <div class="book-detail-overview-custormer-reviews-rating-info">
-          <div class="book-detail-overview-custormer-reviews-rating-name">
-            Nguyễn Văn A
-          </div>
 
-          <div class="book-detail-overview-custormer-reviews-rating-time">
-            Hà Nội
-          </div>
-        </div>
-       <div class="book-detail-overview-custormer-reviews-rating-stars">
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
-    </div>
-    </div> 
+        <p class="book-detail-reviews-rating-status">
+          {{ ratingText }}
+        </p>
 
-    <p class="book-detail-overview-custormer-reviews-rating-commit"> Sách hay, giao hàng nhanh. Sẽ tiếp tục mua ủng hộ shop!</p>
+      </div>
+
+
+  
+
+      <div class="book-detail-reviews-field-author">
+
+        <p class="book-detail-reviews-author-label">
+          Tên của bạn
+        </p>
+
+        <input
+          type="text"
+          name="author"
+          class="book-detail-reviews-author-input"
+          [(ngModel)]="author"
+        />
+
+      </div>
+
+
+
+
+      <div class="book-detail-reviews-field-content">
+
+        <p class="book-detail-reviews-content-label">
+          Nội dung đánh giá
+        </p>
+
+        <textarea
+          name="content"
+          class="book-detail-reviews-content-textarea"
+          [(ngModel)]="content"
+        ></textarea>
+
+      </div>
+
+
+  
+
+      <div class="book-detail-reviews-form-actions">
+
+
+  @if (!isEditingReview) {
+
+    <button
+      type="submit"
+      class="book-detail-reviews-submit-btn"
+      [class.active]="isFormValid()"
+    >
+      Gửi đánh giá
+    </button>
+
+  }
+
+
+  @if (isEditingReview) {
+
+    <button
+      type="button"
+      class="book-detail-reviews-update-btn"
+      [class.active]="isFormValid()"
+      (click)="submitReview()"
+    >
+      Cập nhật đánh giá
+    </button>
+
+
+    <button
+      type="button"
+      class="book-detail-reviews-cancel-btn"
+      (click)="cancelEditReview()"
+    >
+      Hủy
+    </button>
+
+  }
+
 </div>
-<div class="book-detail-overview-custormer-reviews">
 
-   <div  class="book-detail-overview-custormer-reviews-rating"> 
-    <div class="book-detail-overview-custormer-reviews-rating-avatar">
-          N
-        </div>
 
-        <div class="book-detail-overview-custormer-reviews-rating-info">
-          <div class="book-detail-overview-custormer-reviews-rating-name">
-            Nguyễn Văn A
-          </div>
+    </form>
 
-          <div class="book-detail-overview-custormer-reviews-rating-time">
-            Hà Nội
-          </div>
-        </div>
-       <div class="book-detail-overview-custormer-reviews-rating-stars">
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
-      <span>★</span>
+  </div>
+
+}
+@else {
+
+
+
+  <div
+    class="book-detail-overview-customer-reviews-submitted-status"
+  >
+
+    <div
+      class="book-detail-overview-customer-reviews-submitted-message"
+    >
+
+      <span
+        class="book-detail-overview-customer-reviews-submitted-icon"
+      >
+        ✓
+      </span>
+
+      <span
+        class="book-detail-overview-customer-reviews-submitted-text"
+      >
+        Bạn đã gửi đánh giá cho cuốn sách này
+      </span>
+
     </div>
-    </div> 
 
-    <p class="book-detail-overview-custormer-reviews-rating-commit"> Sách hay, giao hàng nhanh. Sẽ tiếp tục mua ủng hộ shop!</p>
+
+    <button
+      type="button"
+      class="book-detail-overview-customer-reviews-edit-btn"
+      (click)="editMyReview()"
+    >
+      Sửa đánh giá
+    </button>
+
+  </div>
+
+}
+
+
+
+<div class="book-detail-overview-customer-reviews-header">
+  <p class="book-detail-overview-customer-reviews-count">Đánh giá(5)</p>
+  <button class="book-detail-overview-customer-reviews-view-all-btn">Xem tất cả 5 đánh giá</button>
 </div>
+
+
+<div
+  class="book-detail-overview-customer-reviews-list"
+>
+
+  @for (
+    review of reviews.slice(0, 4);
+  track review.id
+  ) {
+
+  
+
+    <div
+      class="book-detail-overview-customer-reviews-item"
+    >
+
+    
+      <div
+        class="book-detail-overview-customer-reviews-rating"
+      >
+
+        <!-- Avatar -->
+
+        <div
+          class="book-detail-overview-customer-reviews-rating-avatar"
+        >
+          {{
+            review.author
+              .charAt(0)
+              .toUpperCase()
+          }}
+        </div>
+
+
+        <!-- Info -->
+
+        <div
+          class="book-detail-overview-customer-reviews-rating-info"
+        >
+
+          <div
+            class="book-detail-overview-customer-reviews-rating-name"
+          >
+            {{ review.author }}
+          </div>
+
+
+          <div
+            class="book-detail-overview-customer-reviews-rating-time"
+          >
+            {{ review.date }}
+          </div>
+
+        </div>
+
+
+        <!-- Stars -->
+
+        <div
+          class="book-detail-overview-customer-reviews-rating-stars"
+        >
+
+          @for (
+            star of stars;
+            track star
+          ) {
+
+            <span>
+              {{
+                star <= review.rating
+                  ? '★'
+                  : '☆'
+              }}
+            </span>
+
+          }
+
+        </div>
+
+      </div>
+
+
+ 
+
+<div
+  class="book-detail-overview-customer-reviews-content"
+>
+
+  <p
+    #reviewContent
+    class="book-detail-overview-customer-reviews-commit"
+    [class.expanded]="
+      isContentExpanded(
+        'review',
+        review.id
+      )
+    "
+  >
+    {{ review.content }}
+  </p>
+
+
+  @if (
+    isContentOverflow(
+      'review',
+      review.id
+    )
+  ) {
+
+    <button
+      type="button"
+      class="book-detail-overview-customer-reviews-more-btn"
+      (click)="
+        toggleContent(
+          'review',
+          review.id
+        )
+      "
+    >
+
+      {{
+        isContentExpanded(
+          'review',
+          review.id
+        )
+          ? 'Thu gọn'
+          : 'Xem thêm'
+      }}
+
+    </button>
+
+  }
+
+</div>
+
+
+
+   
+      <div
+        class="book-detail-overview-customer-reviews-actions"
+      >
+
+  
+
+        <button
+          type="button"
+          class="book-detail-overview-customer-reviews-action-btn like-btn"
+          (click)="likeReview(review)"
+        >
+
+          <i
+            class="fa-regular fa-thumbs-up"
+          ></i>
+
+          <span>
+            {{ review.likeCount }}
+          </span>
+
+        </button>
+
+
+   
+
+        <button
+          type="button"
+          class="book-detail-overview-customer-reviews-action-btn reply-btn"
+          (click)="openReviewReply(review)"
+        >
+
+          <i
+            class="fa-regular fa-comment"
+          ></i>
+
+          <span>
+            Phản hồi
+          </span>
+
+        </button>
+
+
+   
+
+     @if (review.replies.length > 0) {
+
+  <button
+    type="button"
+    class="book-detail-overview-customer-reviews-toggle-replies-btn"
+    (click)="toggleReplies(review)"
+  >
+
+    <i
+      class="fa-solid"
+      [class.fa-chevron-down]="!review.showReplies"
+      [class.fa-chevron-up]="review.showReplies"
+    ></i>
+
+    <span>
+      {{
+        review.showReplies
+          ? 'Ẩn phản hồi'
+          : 'Xem ' + review.replies.length + ' phản hồi'
+      }}
+    </span>
+
+  </button>
+
+}
+
+      </div>
+
+
+    
+
+      <div
+        class="book-detail-overview-customer-reviews-replies"
+        [class.active]="
+          review.showReplies
+        "
+      >
+
+        @for (
+          reply of review.replies;
+          track reply.id
+        ) {
+
+        
+          <div
+            class="book-detail-overview-customer-reviews-item-reply"
+          >
+
+        
+
+            <div
+              class="book-detail-overview-customer-reviews-rating-avatar-reply"
+            >
+              {{
+                reply.author
+                  .charAt(0)
+                  .toUpperCase()
+              }}
+            </div>
+
+
+            <div
+              class="book-detail-overview-customer-reviews-rating-reply"
+            >
+
+           
+
+              <div
+                class="book-detail-overview-customer-reviews-rating-info-reply-info"
+              >
+
+          
+
+                <div
+                  class="book-detail-overview-customer-reviews-rating-name-reply"
+                >
+                  {{ reply.author }}
+                </div>
+
+
+         
+
+                @if (
+                  reply.replyTo
+                ) {
+
+                  <div
+                    class="book-detail-overview-customer-reviews-rating-reply-to"
+                  >
+
+                    <span
+                      class="book-detail-overview-customer-reviews-rating-reply-icon"
+                    >
+                      <i
+                        class="fa-solid fa-arrow-right"
+                      ></i>
+                    </span>
+
+
+                    <span
+                      class="book-detail-overview-customer-reviews-rating-reply-prefix"
+                    >
+                      @
+                    </span>
+
+
+                    <span
+                      class="book-detail-overview-customer-reviews-rating-reply-name"
+                    >
+                      {{ reply.replyTo }}
+                    </span>
+
+                  </div>
+
+                }
+
+
+              
+
+                <div
+                  class="book-detail-overview-customer-reviews-rating-time"
+                >
+                  {{ reply.date }}
+                </div>
+
+              </div>
+
+
+           
+
+            <div
+  class="book-detail-overview-customer-reviews-content"
+>
+  <p
+    #replyContent
+    class="book-detail-overview-customer-reviews-commit"
+    [class.expanded]="
+      isContentExpanded(
+        'reply',
+        review.id,
+        reply.id
+      )
+    "
+  >
+    {{ reply.content }}
+  </p>
+
+  @if (
+    isContentOverflow(
+      'reply',
+      review.id,
+      reply.id
+    )
+  ) {
+
+    <button
+      type="button"
+      class="book-detail-overview-customer-reviews-more-btn"
+      (click)="
+        toggleContent(
+          'reply',
+          review.id,
+          reply.id
+        )
+      "
+    >
+      {{
+        isContentExpanded(
+          'reply',
+          review.id,
+          reply.id
+        )
+          ? 'Thu gọn'
+          : 'Xem thêm'
+      }}
+    </button>
+
+  }
+</div>
+
+
+             
+
+              <div
+                class="book-detail-overview-customer-reviews-actions"
+              >
+
+
+                <button
+                  type="button"
+                  class="book-detail-overview-customer-reviews-action-btn like-btn"
+                  (click)="likeReply(reply)"
+                >
+
+                  <i
+                    class="fa-regular fa-thumbs-up"
+                  ></i>
+
+                  <span>
+                    {{ reply.likeCount }}
+                  </span>
+
+                </button>
+
+
+      
+
+                <button
+                  type="button"
+                  class="book-detail-overview-customer-reviews-action-btn reply-btn"
+                  (click)="
+                    openReplyToReply(
+                      review,
+                      reply
+                    )
+                  "
+                >
+
+                  <i
+                    class="fa-regular fa-comment"
+                  ></i>
+
+                  <span>
+                    Phản hồi
+                  </span>
+
+                </button>
+
+              </div>
+
+            </div>
+
+          </div>
+
+        }
+
+      </div>
+
+
+  
+
+      @if (
+       isShowReplyBox === true
+      ) {
+
+        <div
+          class="book-detail-overview-customer-reviews-reply-box"
+        >
+
+          <!-- INPUT -->
+
+          <input
+            type="text"
+            class="book-detail-overview-customer-reviews-reply-input"
+            [placeholder]="
+              getReplyPlaceholder()
+            "
+            [(ngModel)]="replyContent"
+            (keyup.enter)="
+              submitReply(review)
+            "
+          />
+
+
+   
+
+          <button
+            type="button"
+            class="book-detail-overview-customer-reviews-send-btn"
+            (click)="
+              submitReply(review)
+            "
+          >
+            Gửi
+          </button>
+
+
+      
+
+          <button
+            type="button"
+            class="book-detail-overview-customer-reviews-close-btn"
+            aria-label="Đóng"
+            (click)="closeReply()"
+          >
+
+            <i
+              class="fa-solid fa-xmark"
+            ></i>
+
+          </button>
+
+        </div>
+
+      }
+
+    </div>
+
+  }
+
+</div>
+
+
  @if (showViewMore) {
     <div
       class="view-more"

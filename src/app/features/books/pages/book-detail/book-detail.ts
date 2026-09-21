@@ -14,6 +14,7 @@ import { CommonModule, isPlatformBrowser } from '@angular/common';
 import { BookDetailOverviewDescription } from '../../../../shared/components/book-detail-overview-description/book-detail-overview-description';
 import { BookDetailOverviewInformation } from '../../../../shared/components/book-detail-overview-information/book-detail-overview-information';
 import { BookDetailOverviewReviews } from '../../../../shared/components/book-detail-overview-reviews/book-detail-overview-reviews';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-book-detail',
@@ -21,6 +22,7 @@ import { BookDetailOverviewReviews } from '../../../../shared/components/book-de
 
   imports: [
     CommonModule,
+    FormsModule,
     BookDetailOverviewReviews,
     BookDetailOverviewDescription,
     BookDetailOverviewInformation,

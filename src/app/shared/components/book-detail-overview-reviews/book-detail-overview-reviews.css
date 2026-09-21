@@ -126,81 +126,8 @@
   font-weight: 400;
   color: #6B5740;
 }
-.book-detail-overview-custormer-reviews{
-    height: 102px;
-    width: auto;
-    padding: 16px ;
-    background-color: #FAF7F0;
-    display: flex;
-    flex-direction: column;
-    gap:2px;
-    border: 2px solid  #E8DFC8;
-    background-color: aqua;
-}
-.book-detail-overview-custormer-reviews-rating{
-    height: 36px;
-    display: flex;
-    flex-direction: row;
-    gap: 12px;
-    margin-bottom: 8px;
-}
-.book-detail-overview-custormer-reviews-rating-avatar{
-    flex: 0 0 36px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background-color: #8B3A1A;
-     color: #FAF7F0;
-  line-height: 20px;
-  font-size: 14px;
-  font-family: "Lora", serif;
-  font-weight: 700;
-}
-.book-detail-overview-custormer-reviews-rating-info{
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-.book-detail-overview-custormer-reviews-rating-name{
-       line-height: 20px;
-  font-size: 14px;
-  font-family: "Source Sans 3", sans-serif;
-  font-weight: 600;
-  color: #1C1410;
-}
-.book-detail-overview-custormer-reviews-rating-time{
-       line-height: 12px;
-  font-size: 16px;
-  font-family: "Source Sans 3", sans-serif;
-  font-weight: 400;
-  color: #6B5740;
-}
 
 
-
-.book-detail-overview-custormer-reviews-rating-stars{
- display: flex;
-    flex-direction: row;
-    gap: 2px;
-}
-.book-detail-overview-custormer-reviews-rating-stars>span{
-    flex: 1;
-      line-height: 19.5px;
-  font-size: 13px;
-  font-family: "Source Sans 3", sans-serif;
-  font-weight: 400;
-  color: #C4812A;
-}
-.book-detail-overview-custormer-reviews-rating-commit{
-    color: #3D2B1A;
-       line-height: 22.5px;
-  font-size: 14px;
-  font-family: "Source Sans 3", sans-serif;
-  font-weight: 400;
-}
 .view-more{
 
   position: absolute;
@@ -243,4 +170,500 @@
   padding: 0;
   background: none;
 }
-@media screen and (min-width: 95px) and (max-width: 265px) {}
+
+.book-detail-overview-customer-reviews-submitted-status{
+  display: flex;
+  padding: 12px 16px;
+  justify-content: space-between;
+  border: 2px solid #C4812A;
+  border-radius: 4px;
+  background-color: #FAF7F0;
+}
+.book-detail-overview-customer-reviews-submitted-message{
+  gap: 8px;
+}
+/* .book-detail-overview-customer-reviews-submitted-icon{}
+.book-detail-overview-customer-reviews-submitted-text{} */
+.book-detail-overview-customer-reviews-edit-btn{
+  display: flex;
+  height:28px ;
+
+  align-items: center;
+  justify-content: center;
+  background-color: #8B3A1A;
+  line-height: 16px;
+    font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  border-radius: 4px;
+  border: none;
+  color: #FAF7F0;
+}
+.book-detail-overview-customer-reviews-form{
+  display: flex;
+  flex-direction: column;
+  padding: 16px 16px;
+  background-color: #FAF7F0;
+  border-radius: 4px;
+  border: 2px solid #E8DFC8;
+}
+.book-detail-reviews-form-heading{
+  display: flex;
+  margin: 0;
+  padding: 0;
+   color: #1C1410;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+
+}
+.book-detail-reviews-rating-picker{
+display: flex;
+flex-direction: column;
+margin-bottom: 16px;
+}
+.book-detail-reviews-rating-label{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #6B5740
+}
+.book-detail-reviews-star-list{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.book-detail-reviews-star-item{
+border: none;
+background:none;
+width: 36px;
+height: 36px;
+   line-height: 36px;
+  font-size: 36px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #D4C9B0;
+}
+.book-detail-reviews-rating-status{
+  display: flex;
+  justify-content: center;
+     line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #C4812A;
+}
+
+.book-detail-reviews-field-author{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 12px;
+}
+.book-detail-reviews-author-label{
+  display: flex;
+  margin: 0;
+  padding: 0;
+    line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #6B5740;
+}
+.book-detail-reviews-author-input{
+  display: flex;
+  width: 100%;
+    background-color: #F0EBE0;
+  border: 1px solid #C8BDA0;
+  outline: none;
+}
+.book-detail-reviews-field-content{
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+.book-detail-reviews-content-label{
+  display: flex;
+  margin: 0;
+  padding: 0;
+   line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #6B5740;
+}
+.book-detail-reviews-content-textarea{
+  display: flex;
+  width: 100%;
+  background-color: #F0EBE0;
+  border: 1px solid #C8BDA0;
+  outline: none;
+}
+.book-detail-reviews-form-actions{
+   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+.book-detail-reviews-update-btn,
+.book-detail-reviews-cancel-btn,
+.book-detail-reviews-submit-btn {
+  flex: 1;
+  width: 50%;
+}
+.book-detail-reviews-submit-btn{
+ display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  color: #FAF7F0;
+  border-radius: 4px;
+  height: 40px;
+  background-color: #C8BDA0;
+  border: none;
+}
+.book-detail-reviews-update-btn{
+   display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  color: #FAF7F0;
+  border-radius: 4px;
+  height: 40px;
+  background-color: #8B3A1A;
+  border: none;
+}
+.book-detail-reviews-cancel-btn{
+    display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  color: #6B5740;
+  border-radius: 4px;
+  height: 40px;
+  background-color: #FFFFFF;
+  border: 1px solid #C8BDA0;
+   
+}
+.book-detail-reviews-submit-btn.active {
+  background-color: #8B3A1A;
+ 
+}
+.book-detail-overview-customer-reviews-header{
+
+  display: flex;
+ flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.book-detail-overview-customer-reviews-count{
+display: flex;
+align-items: center;
+justify-content: center;
+  margin: 0;
+  padding: 0;
+       line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #1C1410;
+}
+.book-detail-overview-customer-reviews-view-all-btn{
+  display: flex;
+  background: none;
+  border: none;
+     line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #8B3A1A;
+
+}
+
+.book-detail-overview-customer-reviews-item{
+    /* height: 102px; */
+    width: auto;
+    padding: 16px ;
+    background-color: #FAF7F0;
+    display: flex;
+    flex-direction: column;
+    gap:2px;
+    border: 2px solid  #E8DFC8;
+    /* background-color: aqua; */
+}
+.book-detail-reviews-star-item.active {
+  color: #C4812A;
+}
+.book-detail-overview-customer-reviews-rating{
+  
+    display: flex;
+     flex-wrap: wrap;
+    /* flex-direction: row; */
+    gap: 12px;
+    margin-bottom: 8px;
+
+}
+.book-detail-overview-customer-reviews-rating-avatar{
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #8B3A1A;
+     color: #FAF7F0;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+}
+.book-detail-overview-customer-reviews-rating-info{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+  
+  
+}
+.book-detail-overview-customer-reviews-rating-name{
+       line-height: 20px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #1C1410;
+}
+.book-detail-overview-customer-reviews-rating-time{
+
+       line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #6B5740;
+  height: 15px;
+
+}
+
+
+
+.book-detail-overview-customer-reviews-rating-stars{
+ display: flex;
+    flex-direction: row;
+    gap: 2px;
+    align-items: center;
+}
+.book-detail-overview-customer-reviews-rating-stars>span{
+    flex: 1;
+      line-height: 19.5px;
+  font-size: 13px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #C4812A;
+}
+
+.book-detail-overview-customer-reviews-commit{
+  display: -webkit-box;
+
+  color: #3D2B1A;
+
+  line-height: 22.5px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+
+  margin: 0;
+  padding: 0;
+
+
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+
+  
+  -webkit-box-orient: vertical;
+
+  overflow: hidden;
+}
+.book-detail-overview-customer-reviews-commit.expanded {
+  display: block;
+
+  -webkit-line-clamp: unset;
+line-clamp: unset;
+  overflow: visible;
+}
+.book-detail-overview-customer-reviews-more-btn{
+  display: flex;
+  border: none;
+    margin: 0;
+  padding: 0;
+  background: none;
+   color: #8B3A1A;
+  line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  justify-content: start;
+
+}
+.book-detail-overview-customer-reviews-actions{
+  display: flex;
+ flex-wrap: wrap;
+  width: 100%;
+  
+}
+.book-detail-overview-customer-reviews-action-btn{
+  border: none;
+   flex: 0 0 auto;
+  background: none;
+   line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
+}
+.book-detail-overview-customer-reviews-toggle-replies-btn{
+  display: flex;
+ 
+  flex: 1;
+    border: none;
+  background: none;
+   line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
+  color: #8B3A1A;
+  justify-content: end;
+  align-items: center;
+}
+.book-detail-overview-customer-reviews-replies{
+    display: none;
+  flex-direction: column;
+  gap: 12px;
+  padding: 0px 12px;
+   border-left: 1px solid  #E8DFC8;
+}
+
+.book-detail-overview-customer-reviews-replies.active {
+  display: flex;
+}
+.book-detail-overview-customer-reviews-rating-avatar-reply{
+    flex: 0 0 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background-color: #8B3A1A;
+     color: #FAF7F0;
+  line-height: 20px;
+  font-size: 14px;
+  font-family: "Lora", serif;
+  font-weight: 700;
+}
+.book-detail-overview-customer-reviews-item-reply{
+gap: 8px;
+      width: 100%;
+    display: flex;
+    
+   
+
+  
+}
+.book-detail-overview-customer-reviews-rating-reply-to{
+  display: flex;
+  flex: row;
+display: flex;
+margin: 0;
+padding: 0;
+
+}
+.book-detail-overview-customer-reviews-rating-name-reply{
+
+       line-height: 20px;
+  font-size: 14px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #1C1410;
+  display: flex;
+  padding: 0;
+  margin: 0;
+  /* background-color: #3D2B1A; */
+}
+.book-detail-overview-customer-reviews-rating-reply-name,
+.book-detail-overview-customer-reviews-rating-reply-prefix
+{
+    line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
+  color: #8B3A1A;
+}
+.book-detail-overview-customer-reviews-rating-reply-icon{
+    line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
+  color: #6B5740;
+
+}
+
+.book-detail-overview-customer-reviews-rating-info-reply-info{
+
+
+  display: flex;
+
+  align-items: center;
+flex-wrap: wrap;
+ 
+
+}
+.book-detail-overview-customer-reviews-rating-reply{
+  
+   display: flex;
+    flex-direction: column;
+ 
+
+
+}
+.book-detail-overview-customer-reviews-reply-box{
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.book-detail-overview-customer-reviews-reply-input{
+  display: flex;
+  flex: 1;
+    background-color: #F0EBE0;
+  border: 1px solid #C8BDA0;
+  outline: none
+}
+.book-detail-overview-customer-reviews-send-btn{
+  flex: 0 0 40px;
+      line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 600;
+  color: #FAF7F0;
+  background-color: #8B3A1A;
+  border-radius: 4px;
+  border: none;
+}
+.book-detail-overview-customer-reviews-close-btn{
+   flex: 0 0 40px;
+  border: none;
+  background: none;
+    line-height: 16px;
+  font-size: 12px;
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 400;
+  color: #6B5740;
+}
+
