@@ -1,90 +1,345 @@
-<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+<div class="container-fluid">
 
-    <div class="title mt-5 mb-5">
+<div class="login-background">
+
+  <img
+    class="login-background-img"
+    src="/assets/images/banner/pngtree-an-old-style-library-with-shelves-full-of-books-image_2679112.jpg"
+    alt="Book Store"
+  >
+
+  <div class="login-background-overlay"></div>
+
+
+  <div class="login-background-banner">
+    <h1>BOOK STORE</h1>
+    <p>Thế giới sách</p>
+  </div>
+
+ 
+  <div class="member-benefits">
+
+    <p class="member-benefits-label">
+      Ưu đãi thành viên
+    </p>
+
+    <h2 class="member-benefits-title-1">
+      Đăng nhập để nhận
+    </h2>
+
+    <h2 class="member-benefits-title-2">
+      Hàng ngàn ưu đãi độc quyền
+    </h2>
+
+    <div class="benefits-list">
+
+      <div class="benefit-item">
+        <span class="benefit-icon">🎁</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Giảm 15%</p>
+          <p class="benefit-description">
+            Ưu đãi đơn hàng đầu tiên
+          </p>
+        </div>
+      </div>
+
+     
+      <div class="benefit-item">
+        <span class="benefit-icon">🚀</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Freeship</p>
+          <p class="benefit-description">
+            Miễn phí ship đơn từ 150k
+          </p>
+        </div>
+      </div>
+
+
+      <div class="benefit-item">
+        <span class="benefit-icon">📖</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">E-book miễn phí</p>
+          <p class="benefit-description">
+            Tặng một cuốn mỗi tuần
+          </p>
+        </div>
+      </div>
+
+  
+      <div class="benefit-item">
+        <span class="benefit-icon">⭐</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Tích điểm</p>
+          <p class="benefit-description">
+            Đổi quà tích điểm
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+   <div class="login-background-form d-flex flex-column   align-items-center" >
+     <div class="title mt-5 mb-5">
       <h1 class="store-name">BOOK STORE</h1>
     </div>
 
     <div class="content">
-      <form class="register-form" action="">
+      <form class="register-form" (ngSubmit)="register()">
 
-        <label class="input-label mt-2" >Họ và Tên</label>
-        <input class="input-field"
-        placeholder="Nguyễn Văn A"
-        >
+  <label class="input-label mt-2">Họ và Tên</label>
+  <div
+    class="main-wrapper"
+    [ngClass]="{ 'active': fullNameError }"
+  >
+    <i class="fa-solid fa-user"></i>
 
-        <label class="input-label mt-2">Email </label>
-        <input class="input-field"
-        placeholder="example@gmail.com"
-        >
+    <input
+      class="input-field"
+      type="text"
+      [(ngModel)]="registerData.fullName"
+      name="fullName"
+      placeholder="Nguyễn Văn A"
+      ((focus))="resetErrors()"
+    >
+  </div>
 
-        <label class="input-label mt-2">Số Điện Thoại </label>
-        <input class="input-field"
-        placeholder="0123 456 789"
-        >
+  @if (fullNameError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Vui lòng nhập họ và tên</span>
+    </div>
+  }
 
- <label class="input-label mt-2">Mật khẩu</label>
+  <label class="input-label mt-2">Email</label>
 
-<div class="password-wrapper">
-  <input
-    class="input-field"
-    [type]="showPassword ? 'text' : 'password'"
-    placeholder="Tối thiểu 8 ký tự"
+  <div class="main-wrapper" [ngClass]="{ 'active': emailError }">
+
+    <i class="fa-solid fa-envelope"></i>
+
+    <input
+      class="input-field"
+      type="email"
+      [(ngModel)]="registerData.email"
+      name="email"
+      placeholder="example@gmail.com"
+      ((focus))="resetErrors()"
+    >
+
+  </div>
+
+  @if (emailError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Email không hợp lệ</span>
+    </div>
+  }
+
+  <label class="input-label mt-2">Số Điện Thoại</label>
+
+  <div
+    class="main-wrapper"
+    [ngClass]="{ 'active': phoneError }"
+  >
+    <i class="fa-solid fa-phone"></i>
+
+    <input
+      class="input-field"
+      type="tel"
+      [(ngModel)]="registerData.phone"
+      name="phone"
+      placeholder="0123 456 789"
+      ((focus))="resetErrors()"
+    >
+  </div>
+
+  @if (phoneError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Số điện thoại không hợp lệ</span>
+    </div>
+  }
+
+  <label class="input-label mt-2">Mật khẩu</label>
+
+  <div
+    class="password-wrapper"
+    [ngClass]="{ 'active': passwordError }"
   >
 
-  <i
-    class="fa-solid"
-    [class.fa-eye]="!showPassword"
-    [class.fa-eye-slash]="showPassword"
-    (click)="togglePassword()"
-  ></i>
+    <i class="fa-solid fa-lock"></i>
+
+    <input
+      class="input-field"
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="registerData.password"
+      name="password"
+      placeholder="Nhập mật khẩu"
+     (ngModelChange)="checkPassword($event)"
+  (focus)="resetErrors()"
+    >
+
+    <i
+      class="fa-solid"
+      [class.fa-eye]="!showPassword"
+      [class.fa-eye-slash]="showPassword"
+      (click)="togglePassword()"
+    ></i>
+
+  </div>
+
+ @if ( passwordValid) {
+   <div class="input-error-password">
+
+  <p class="password-condition-title">
+    MẬT KHẨU PHẢI CÓ:
+  </p>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasMinLength"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasMinLength"
+      [class.fa-xmark]="!passwordHasMinLength"
+    ></i>
+
+    <span>Ít nhất 8 ký tự</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasUppercase"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasUppercase"
+      [class.fa-xmark]="!passwordHasUppercase"
+    ></i>
+
+    <span>Có ít nhất 1 chữ hoa</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasLowercase"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasLowercase"
+      [class.fa-xmark]="!passwordHasLowercase"
+    ></i>
+
+    <span>Có ít nhất 1 chữ thường</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasNumber"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasNumber"
+      [class.fa-xmark]="!passwordHasNumber"
+    ></i>
+
+    <span>Có ít nhất 1 chữ số</span>
+  </div>
+
 </div>
-      
 
-       <label class="input-label mt-2">Nhập lại mật khẩu</label>
+  }
+ @if (passwordError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Mật khẩu không hợp lệ</span>
+    </div>
+  }
+  <label class="input-label mt-2">Nhập lại mật khẩu</label>
 
-<div class="password-wrapper">
-  <input
-    class="input-field"
-    [type]="showConfirmPassword ? 'text' : 'password'"
-    placeholder="Nhập lại mật khẩu"
+  <div
+    class="password-wrapper"
+    [ngClass]="{ 'active': confirmPasswordError }"
   >
 
-  <i
-    class="fa-solid"
-    [class.fa-eye]="!showConfirmPassword"
-    [class.fa-eye-slash]="showConfirmPassword"
-    (click)="toggleConfirmPassword()"
-  ></i>
-</div>
-       <div class="agreement">
-           <input class="agreement-checkbox" type="checkbox">
-            <span class="agreement-text">
-                 Tôi đồng ý với
-                 <a class="agreement-link">Điều khoản dịch vụ</a>
-                 và
-                 <a class="agreement-link">Chính sách bảo mật</a>
-            </span>
-      </div>
-        <button class="register-button mt-4 mb-1">
-          Tạo tài khoản
-        </button>
-<div class="divider-container d-flex flex-row align-items-center">
-  <hr class="divider">
-  <p class="divider-text">hoặc</p>
-  <hr class="divider">
-</div>
-        <button class="google-login-button mt-1 mb-1">
-            <i class="fa-brands fa-google"></i>
-          Đăng nhập với Google
-        </button>
+    <i class="fa-solid fa-lock"></i>
 
-        <button class="facebook-login-button mt-1  mb-1">
-            <i class="fa-brands fa-facebook-f"></i>
-        
-          Đăng nhập với Facebook
-        </button>
+    <input
+      class="input-field"
+      [type]="showConfirmPassword ? 'text' : 'password'"
+      [(ngModel)]="registerData.confirmPassword"
+      name="confirmPassword"
+      placeholder="Nhập mật khẩu"
+      (focus)="resetErrors()"
+    >
 
-      </form>
+    <i
+      class="fa-solid"
+      [class.fa-eye]="!showConfirmPassword"
+      [class.fa-eye-slash]="showConfirmPassword"
+      (click)="toggleConfirmPassword()"
+    ></i>
+
+  </div>
+
+  @if (confirmPasswordError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Mật khẩu không trùng khớp</span>
+    </div>
+  }
+
+  <div class="agreement">
+    <input
+      class="agreement-checkbox"
+      [(ngModel)]="registerData.agreement"
+      name="agreement"
+      type="checkbox"
+    >
+
+    <span class="agreement-text">
+      Tôi đồng ý với
+      <a class="agreement-link">Điều khoản dịch vụ</a>
+      và
+      <a class="agreement-link">Chính sách bảo mật</a>
+    </span>
+  </div>
+
+  @if (agreementError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Bạn cần đồng ý với điều khoản đề tiếp tục</span>
+    </div>
+  }
+
+  <button type="submit" class="register-button mt-4 mb-1">
+    Tạo tài khoản
+  </button>
+
+  <div class="divider-container d-flex flex-row align-items-center">
+    <hr class="divider">
+    <p class="divider-text">hoặc</p>
+    <hr class="divider">
+  </div>
+
+  <button class="google-login-button mt-1 mb-1">
+    <i class="fa-brands fa-google"></i>
+    Đăng nhập với Google
+  </button>
+
+  <button class="facebook-login-button mt-1 mb-1">
+    <i class="fa-brands fa-facebook-f"></i>
+    Đăng nhập với Facebook
+  </button>
+
+</form>
+
     </div>
 
     <p class="login-text">
@@ -95,5 +350,281 @@
         Đăng nhập
       </button>
     </p>
+
+   </div>
+
+ <div class="login-background-bottom">
+    <p>     © 2026 Hiệu Sách — Bảo lưu mọi quyền</p>
+  </div>
+
+</div>
+   <div class="form d-flex flex-column   align-items-center" >
+     <div class="title mt-5 mb-5">
+      <h1 class="store-name">BOOK STORE</h1>
+    </div>
+
+    <div class="content">
+      <form class="register-form" (ngSubmit)="register()">
+
+  <label class="input-label mt-2">Họ và Tên</label>
+  <div
+    class="main-wrapper"
+    [ngClass]="{ 'active': fullNameError }"
+  >
+    <i class="fa-solid fa-user"></i>
+
+    <input
+      class="input-field"
+      type="text"
+      [(ngModel)]="registerData.fullName"
+      name="fullName"
+      placeholder="Nguyễn Văn A"
+      ((focus))="resetErrors()"
+    >
+  </div>
+
+  @if (fullNameError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Vui lòng nhập họ và tên</span>
+    </div>
+  }
+
+  <label class="input-label mt-2">Email</label>
+
+  <div class="main-wrapper" [ngClass]="{ 'active': emailError }">
+
+    <i class="fa-solid fa-envelope"></i>
+
+    <input
+      class="input-field"
+      type="email"
+      [(ngModel)]="registerData.email"
+      name="email"
+      placeholder="example@gmail.com"
+      ((focus))="resetErrors()"
+    >
+
+  </div>
+
+  @if (emailError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Email không hợp lệ</span>
+    </div>
+  }
+
+  <label class="input-label mt-2">Số Điện Thoại</label>
+
+  <div
+    class="main-wrapper"
+    [ngClass]="{ 'active': phoneError }"
+  >
+    <i class="fa-solid fa-phone"></i>
+
+    <input
+      class="input-field"
+      type="tel"
+      [(ngModel)]="registerData.phone"
+      name="phone"
+      placeholder="0123 456 789"
+      ((focus))="resetErrors()"
+    >
+  </div>
+
+  @if (phoneError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Số điện thoại không hợp lệ</span>
+    </div>
+  }
+
+  <label class="input-label mt-2">Mật khẩu</label>
+
+  <div
+    class="password-wrapper"
+    [ngClass]="{ 'active': passwordError }"
+  >
+
+    <i class="fa-solid fa-lock"></i>
+
+    <input
+      class="input-field"
+      [type]="showPassword ? 'text' : 'password'"
+      [(ngModel)]="registerData.password"
+      name="password"
+      placeholder="Nhập mật khẩu"
+     (ngModelChange)="checkPassword($event)"
+  (focus)="resetErrors()"
+    >
+
+    <i
+      class="fa-solid"
+      [class.fa-eye]="!showPassword"
+      [class.fa-eye-slash]="showPassword"
+      (click)="togglePassword()"
+    ></i>
+
+  </div>
+
+ @if ( passwordValid) {
+   <div class="input-error-password">
+
+  <p class="password-condition-title">
+    MẬT KHẨU PHẢI CÓ:
+  </p>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasMinLength"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasMinLength"
+      [class.fa-xmark]="!passwordHasMinLength"
+    ></i>
+
+    <span>Ít nhất 8 ký tự</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasUppercase"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasUppercase"
+      [class.fa-xmark]="!passwordHasUppercase"
+    ></i>
+
+    <span>Có ít nhất 1 chữ hoa</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasLowercase"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasLowercase"
+      [class.fa-xmark]="!passwordHasLowercase"
+    ></i>
+
+    <span>Có ít nhất 1 chữ thường</span>
+  </div>
+
+  <div
+    class="password-condition"
+    [class.active]="passwordHasNumber"
+  >
+    <i
+      class="fa-solid"
+      [class.fa-check]="passwordHasNumber"
+      [class.fa-xmark]="!passwordHasNumber"
+    ></i>
+
+    <span>Có ít nhất 1 chữ số</span>
+  </div>
+
+</div>
+
+  }
+ @if (passwordError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Mật khẩu không hợp lệ</span>
+    </div>
+  }
+  <label class="input-label mt-2">Nhập lại mật khẩu</label>
+
+  <div
+    class="password-wrapper"
+    [ngClass]="{ 'active': confirmPasswordError }"
+  >
+
+    <i class="fa-solid fa-lock"></i>
+
+    <input
+      class="input-field"
+      [type]="showConfirmPassword ? 'text' : 'password'"
+      [(ngModel)]="registerData.confirmPassword"
+      name="confirmPassword"
+      placeholder="Nhập mật khẩu"
+      (focus)="resetErrors()"
+    >
+
+    <i
+      class="fa-solid"
+      [class.fa-eye]="!showConfirmPassword"
+      [class.fa-eye-slash]="showConfirmPassword"
+      (click)="toggleConfirmPassword()"
+    ></i>
+
+  </div>
+
+  @if (confirmPasswordError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Mật khẩu không trùng khớp</span>
+    </div>
+  }
+
+  <div class="agreement">
+    <input
+      class="agreement-checkbox"
+      [(ngModel)]="registerData.agreement"
+      name="agreement"
+      type="checkbox"
+    >
+
+    <span class="agreement-text">
+      Tôi đồng ý với
+      <a class="agreement-link">Điều khoản dịch vụ</a>
+      và
+      <a class="agreement-link">Chính sách bảo mật</a>
+    </span>
+  </div>
+
+  @if (agreementError) {
+    <div class="input-error">
+      <i class="fa-solid fa-circle-exclamation"></i>
+      <span>Bạn cần đồng ý với điều khoản đề tiếp tục</span>
+    </div>
+  }
+
+  <button type="submit" class="register-button mt-4 mb-1">
+    Tạo tài khoản
+  </button>
+
+  <div class="divider-container d-flex flex-row align-items-center">
+    <hr class="divider">
+    <p class="divider-text">hoặc</p>
+    <hr class="divider">
+  </div>
+
+  <button class="google-login-button mt-1 mb-1">
+    <i class="fa-brands fa-google"></i>
+    Đăng nhập với Google
+  </button>
+
+  <button class="facebook-login-button mt-1 mb-1">
+    <i class="fa-brands fa-facebook-f"></i>
+    Đăng nhập với Facebook
+  </button>
+
+</form>
+
+    </div>
+
+    <p class="login-text">
+      Đã có tài khoản?
+      <button class="login-button"
+       (click)="goToLogin()"
+      >
+        Đăng nhập
+      </button>
+    </p>
+
+   </div>
 
   </div>

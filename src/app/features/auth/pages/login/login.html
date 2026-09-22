@@ -1,4 +1,5 @@
-<div class="container-fluid d-flex flex-column justify-content-center align-items-center">
+<div class="container-fluid">
+<div class="form d-flex flex-column  align-items-center">
 
   <div class="title mt-3 mb-5">
     <h1 class="store-name">BOOK STORE</h1>
@@ -9,35 +10,65 @@
 
       
       <label class="input-label">
-        Email hoặc số điện thoại
-      </label>
+  Email hoặc số điện thoại
+</label>
 
-      <input
-        class="input-field"
-        type="text"
-      >
+<div class="main-wrapper" [ngClass]="{ 'active':  emailError}">
+  <i class="fa-solid fa-envelope"></i>
+
+  <input
+  class="input-field"
+  type="text"
+  [(ngModel)]="loginData.email"
+  name="email"
+  placeholder="Nhập email"
+(focus)="resetErrors()"
+  >
+</div>
+
+@if (emailError) {
+  <div class="input-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>Email không hợp lệ</span>
+  </div>
+}
+
+
+<label class="input-label mt-2">
+  Mật khẩu
+</label>
+
+<div class="password-wrapper"  [ngClass]="{ 'active':  passwordError}">
+
+  <i class="fa-solid fa-lock"></i>
+
+  <input
+   class="input-field"
+  [type]="showPassword ? 'text' : 'password'"
+  [(ngModel)]="loginData.password"
+  name="password"
+  placeholder="Nhập mật khẩu"
+(focus)="resetErrors()"
+  >
+
+  <i
+    class="fa-solid"
+    [class.fa-eye]="!showPassword"
+    [class.fa-eye-slash]="showPassword"
+    (click)="togglePassword()"
+  ></i>
+
+</div>
+
+@if (passwordError) {
+  <div class="input-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>Mật khẩu không chính xác</span>
+  </div>
+}
 
       
-      <label class="input-label mt-2">
-        Mật khẩu
-      </label>
-
-      <div class="password-wrapper">
-        <input
-          class="input-field"
-          [type]="showPassword ? 'text' : 'password'"
-          placeholder="Tối thiểu 8 ký tự"
-        >
-
-        <i
-          class="fa-solid"
-          [class.fa-eye]="!showPassword"
-          [class.fa-eye-slash]="showPassword"
-          (click)="togglePassword()"
-        ></i>
-      </div>
-
-      
+   
       <div class="login-options mt-1 mb-1 d-flex justify-content-between">
 
         <label class="remember-login">
@@ -60,13 +91,13 @@
 
       </div>
 
-      
-      <button
-        type="button"
-        class="login-button mt-4 mb-1"
-      >
-        Đăng nhập
-      </button>
+     <button
+  type="button"
+  class="login-button mt-4 mb-1"
+  (click)="login()"
+>
+  Đăng nhập
+</button>
 
      
       <div class="divider-container d-flex align-items-center">
@@ -108,5 +139,242 @@
       Đăng ký ngay?
     </button>
   </p>
+
+</div>
+  
+<div class="login-background">
+
+  <img
+    class="login-background-img"
+    src="/assets/images/banner/pngtree-an-old-style-library-with-shelves-full-of-books-image_2679112.jpg"
+    alt="Book Store"
+  >
+
+  <div class="login-background-overlay"></div>
+
+
+  <div class="login-background-banner">
+    <h1>BOOK STORE</h1>
+    <p>Thế giới sách</p>
+  </div>
+
+
+  <div class="member-benefits">
+
+    <p class="member-benefits-label">
+      Ưu đãi thành viên
+    </p>
+
+    <h2 class="member-benefits-title-1">
+      Đăng nhập để nhận
+    </h2>
+
+    <h2 class="member-benefits-title-2">
+      Hàng ngàn ưu đãi độc quyền
+    </h2>
+
+    <div class="benefits-list">
+
+  
+      <div class="benefit-item">
+        <span class="benefit-icon">🎁</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Giảm 15%</p>
+          <p class="benefit-description">
+            Ưu đãi đơn hàng đầu tiên
+          </p>
+        </div>
+      </div>
+
+  
+      <div class="benefit-item">
+        <span class="benefit-icon">🚀</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Freeship</p>
+          <p class="benefit-description">
+            Miễn phí ship đơn từ 150k
+          </p>
+        </div>
+      </div>
+
+  
+      <div class="benefit-item">
+        <span class="benefit-icon">📖</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">E-book miễn phí</p>
+          <p class="benefit-description">
+            Tặng một cuốn mỗi tuần
+          </p>
+        </div>
+      </div>
+
+ 
+      <div class="benefit-item">
+        <span class="benefit-icon">⭐</span>
+
+        <div class="benefit-content">
+          <p class="benefit-title">Tích điểm</p>
+          <p class="benefit-description">
+            Đổi quà tích điểm
+          </p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+
+  <div class="login-background-form d-flex flex-column  align-items-center">
+
+  <div class="title mt-3 mb-5">
+    <h1 class="store-name">BOOK STORE</h1>
+  </div>
+
+  <div class="content">
+    <form class="login-form">
+
+      
+      <label class="input-label">
+  Email hoặc số điện thoại
+</label>
+
+<div class="main-wrapper" [ngClass]="{ 'active':  emailError}">
+  <i class="fa-solid fa-envelope"></i>
+
+  <input
+  class="input-field"
+  type="text"
+  [(ngModel)]="loginData.email"
+  name="email"
+  placeholder="Nhập email"
+(focus)="resetErrors()"
+  >
+</div>
+
+@if (emailError) {
+  <div class="input-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>Email không hợp lệ</span>
+  </div>
+}
+
+
+<label class="input-label mt-2">
+  Mật khẩu
+</label>
+
+<div class="password-wrapper"  [ngClass]="{ 'active':  passwordError}">
+
+  <i class="fa-solid fa-lock"></i>
+
+  <input
+   class="input-field"
+  [type]="showPassword ? 'text' : 'password'"
+  [(ngModel)]="loginData.password"
+  name="password"
+  placeholder="Nhập mật khẩu"
+(focus)="resetErrors()"
+  >
+
+  <i
+    class="fa-solid"
+    [class.fa-eye]="!showPassword"
+    [class.fa-eye-slash]="showPassword"
+    (click)="togglePassword()"
+  ></i>
+
+</div>
+
+@if (passwordError) {
+  <div class="input-error">
+    <i class="fa-solid fa-circle-exclamation"></i>
+    <span>Mật khẩu không chính xác</span>
+  </div>
+}
+
+      
+   
+      <div class="login-options mt-1 mb-1 d-flex justify-content-between">
+
+        <label class="remember-login">
+          <input
+            class="form-check-input remember-checkbox"
+            type="checkbox"
+          >
+
+          <span class="remember-label">
+            Nhớ đăng nhập
+          </span>
+        </label>
+
+        <button
+          type="button"
+          class="forgot-password"
+        >
+          Quên mật khẩu?
+        </button>
+
+      </div>
+
+     <button
+  type="button"
+  class="login-button mt-4 mb-1"
+  (click)="login()"
+>
+  Đăng nhập
+</button>
+
+     
+      <div class="divider-container d-flex align-items-center">
+        <hr class="divider">
+        <span class="divider-text">hoặc</span>
+        <hr class="divider">
+      </div>
+
+      
+      <button
+        type="button"
+        class="google-login-button mt-1 mb-1"
+      >
+        <i class="fa-brands fa-google"></i>
+        Đăng nhập với Google
+      </button>
+
+   
+      <button
+        type="button"
+        class="facebook-login-button mt-1 mb-1"
+      >
+        <i class="fa-brands fa-facebook-f"></i>
+        Đăng nhập với Facebook
+      </button>
+
+    </form>
+  </div>
+
+ 
+  <p class="register-text">
+    Chưa có tài khoản?
+
+    <button
+      type="button"
+      class="register-button"
+      (click)="goToRegister()"
+    >
+      Đăng ký ngay?
+    </button>
+  </p>
+
+</div>
+
+  <div class="login-background-bottom">
+    <p>     © 2026 Hiệu Sách — Bảo lưu mọi quyền</p>
+  </div>
+
+</div>
 
 </div>

@@ -1,3 +1,71 @@
+
+<div class="floating-actions">
+
+  <div class="chat-wrapper">
+
+    @if (showContact) {
+      <div class="contact">
+
+        <p class="contact-title">
+          Liên hệ với chúng tôi
+        </p>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-phone contact-icon"></i>
+
+          <div class="contact-info">
+            <p class="contact-label">Hotline</p>
+            <p class="contact-value">1800 0000</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-envelope contact-icon"></i>
+
+          <div class="contact-info">
+            <p class="contact-label">Email</p>
+            <p class="contact-value">Example@gmail.com</p>
+          </div>
+        </div>
+
+        <div class="contact-item">
+          <i class="fa-solid fa-comment-dots contact-icon"></i>
+
+          <div class="contact-info">
+            <p class="contact-label">Zalo</p>
+            <p class="contact-value">Chat ngay</p>
+          </div>
+        </div>
+
+      </div>
+    }
+
+ 
+    <button
+      class="floating-button chat-button"
+      type="button"
+      (click)="toggleContact()"
+    >
+      <i class="fa-solid fa-comment"></i>
+    </button>
+
+  </div>
+
+
+
+  @if (showBackToTop) {
+    <button
+      class="floating-button back-to-top"
+      type="button"
+      (click)="scrollToTop()"
+    >
+      <i class="fa-solid fa-angle-up"></i>
+    </button>
+  }
+
+</div>
+
+
  <div class="container-fluid">
 <app-header 
   ></app-header>
