@@ -4,6 +4,7 @@ import { Register } from './features/auth/pages/register/register';
 import { MainLayout } from './layouts/main-layout/main-layout';
 import { Home } from './features/home/pages/home/home';
 import { BookDetail } from './features/books/pages/book-detail/book-detail';
+import { Cart } from './features/cart/pages/cart/cart';
 export const routes: Routes = [
 
   {
@@ -11,9 +12,8 @@ export const routes: Routes = [
     component: MainLayout,
     children:[
  { path: '', component: Home },
- {path:'book-detail',component:BookDetail,
-  
- }
+ {path:'book-detail',component:BookDetail,},
+  {path:'cart',component:Cart},
     ]
   },
 {

@@ -40,5 +40,8 @@ closeSearch(): void {
   setActive(item: string): void {
     this.activeItem = item;
   }
- 
+ goToCard() {
+  
+    this.router.navigate(['/cart']);
+  } 
 }

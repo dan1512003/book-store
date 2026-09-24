@@ -1,1 +1,498 @@
-<p>cart works!</p>
+
+
+@if (isPromotionOpen) {
+  <div class="side-overlay-promotion"
+
+></div>
+  <div class="side-nav-promotion"
+
+>
+  <div class="side-nav-header-promotion">
+    <div class="side-nav-header-title-promtion">
+<i class="fa-solid fa-ticket"></i>
+<h3>Khuyến Mãi</h3>
+    </div>
+  <button 
+  type="button"
+    (click)="closePromotion()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+  </div>
+<div class="side-nav-input-code-promotion">
+  <p class="side-nav-input-code-promotion-label">
+    Nhập mã giảm giá của bạn
+  </p>
+
+
+  <div class="side-nav-input-code-promotion-form">
+    <input
+      type="text"
+      name="promo_code"
+      class="side-nav-input-code-promotion-input"
+      placeholder="Nhập mã giảm giá"
+      [(ngModel)]="promotionCode"
+      (input)="promotionError = ''"
+    />
+
+    <button
+      type="button"
+      class="side-nav-input-code-promotion-button"
+      (click)="applyPromotion()"
+    >
+      Áp dụng
+    </button>
+
+
+
+</div>
+
+    <p class="side-nav-input-code-promotion-error">
+      {{ promotionError }}
+    </p>
+  
+
+
+</div>
+
+<div class="side-nav-overflow-promotion">
+
+  <div class="side-nav-list-promotion">
+ 
+  <p>ƯU ĐÃI DÀNH CHO BẠN</p>
+@for (promotion of promotions; track promotion.id) {
+
+  <label class="side-nav-item-promotion"
+  [class.disabled]="!checkPromotionCondition(promotion.condition)"
+  >
+
+    <div class="side-nav-item-promotion-content">
+
+      <p class="side-nav-item-promotion-title">
+        {{ promotion.title }}
+      </p>
+
+      <p class="side-nav-item-promotion-description">
+        {{ promotion.description }}
+      </p>
+
+    </div>
+
+    <input
+      class="side-nav-item-promotion__checkbox"
+      type="checkbox"
+      [(ngModel)]="promotion.selected"
+    >
+
+  </label>
+
+}
+
+</div>
+</div>
+
+
+ <div class="side-nav-bottom-promotion">
+
+ <button
+  type="button"
+  (click)="closePromotion()"
+>
+  Xác nhận và đóng
+</button>
+
+
+ </div>
+</div>
+}
+@if (isGiftOpen) {
+  <div class="side-overlay-gift"></div>
+
+  <div class="side-nav-gift">
+    <div class="side-nav-header-gift">
+      <div class="side-nav-header-title-gift">
+        <i class="fa-solid fa-gift"></i>
+        <h3>Quà Tặng</h3>
+      </div>
+
+      <button
+    
+        (click)="closeGift()">
+        <i class="fa-solid fa-x"></i>
+      </button>
+    </div>
+
+  
+
+    <div class="side-nav-overflow-gift">
+
+      <div class="side-nav-list-gift">
+
+        <p>QUÀ TẶNG DÀNH CHO BẠN</p>
+@if (gifts.length === 0) {
+
+  <div class="side-nav-item-gift-none">
+    <i class="fa-solid fa-gift"></i>
+    <p>Chưa có quà tặng</p>
+  </div>
+
+} @else {
+
+  @for (gift of gifts; track gift.id) {
+
+    <div class="side-nav-item-gift"
+      [class.disabled]="!checkGiftCondition(gift.condition)"
+    
+    >
+
+      <div>
+  <i
+    class="fa-solid"
+    [class.fa-gift]="gift.type === 'gift'"
+    [class.fa-ticket]="gift.type === 'promotion'"
+  ></i>
+</div>
+
+
+      <div class="side-nav-item-gift-content">
+
+        <p class="side-nav-item-gift-title">
+          {{ gift.title }} 
+        </p>
+
+        <p class="side-nav-item-gift-description">
+          {{ gift.description }}
+        </p>
+
+      </div>
+
+      <span>
+        x{{ gift.quantity }}
+      </span>
+
+    </div>
+
+  }
+
+}
+
+
+      </div>
+    </div>
+
+    <div class="side-nav-bottom-gift">
+      <button
+        type="button"
+        (click)="closeGift()">
+        Đã hiểu và đóng
+      </button>
+    </div>
+  </div>
+}
+
+
+
+<div class="container-fluid">
+  <div class="cart-container">
+  <div class="cart-products">
+
+  <div class="cart-products-header">
+
+  <div>
+    <input
+      class="cart-products-select-all"
+      type="checkbox"
+     [(ngModel)]="isSelectAll"
+
+      (change)="toggleSelectAll()"
+    >
+
+    <span class="cart-products-select-all-text">
+      Chọn tất cả ({{ getSelectedProductCount() }} sản phẩm)
+    </span>
+  </div>
+
+  @if (hasSelectedProducts()) {
+    <button
+      type="button"
+      class="cart-products-delete-all"
+      (click)="deleteSelectedProducts()"
+    >
+      Xóa tất cả
+    </button>
+  }
+
+</div>
+
+
+    <div class="cart-product">
+    @for (product of cartProducts; track product.id) {
+
+  <div class="cart-product-wrapper">
+
+    <input
+      class="cart-product-checkbox"
+      type="checkbox"
+      [(ngModel)]="product.selected"
+        (ngModelChange)="onProductSelectionChange()"
+    >
+
+    <img
+      class="cart-product-image"
+      [src]="product.image"
+      [alt]="product.name"
+    >
+
+    <div class="cart-product-info">
+
+      <h4 class="cart-product-name">
+        {{ product.name }}
+      </h4>
+
+      <div class="cart-product-prices">
+
+        <span class="cart-product-price-current">
+          {{ product.price | number:'1.0-0' }}₫
+        </span>
+
+        <span class="cart-product-price-old">
+          {{ product.oldPrice | number:'1.0-0' }}₫
+        </span>
+
+      </div>
+
+      <div class="cart-product-bottom">
+
+        <div class="cart-product-quantity-control">
+
+          <button
+            type="button"
+            class="cart-product-quantity-btn cart-product-quantity-btn-minus"
+            (click)="decreaseQuantity(product)"
+          >
+            -
+          </button>
+
+          <span class="cart-product-quantity-value">
+            {{ product.quantity }}
+          </span>
+
+          <button
+            type="button"
+            class="cart-product-quantity-btn cart-product-quantity-btn-plus"
+            (click)="increaseQuantity(product)"
+          >
+            +
+          </button>
+
+        </div>
+
+        <span class="cart-product-total">
+          {{ getProductTotal(product) | number:'1.0-0' }}₫
+        </span>
+
+        <button
+          type="button"
+          class="cart-product-delete"
+          (click)="removeFromCart(product.id)"
+        >
+          <i class="fa-solid fa-trash"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+
+}
+
+    </div>
+
+    <div class="cart-related-products">
+
+      <h3 class="cart-related-products-title">
+        Có thể bạn cũng thích
+      </h3>
+
+      <div class="cart-related-products-wrapper">
+
+        <button 
+        type="button"
+        class="cart-related-products-button cart-related-products-button-prev"
+              [class.hidden]="!hasRelatedScroll"
+      (click)="scrollRelatedContent('left')">
+          <i class="fa-solid fa-chevron-left"></i>
+        </button>
+
+        <button
+         type="button"
+         class="cart-related-products-button cart-related-products-button-next"
+           [class.hidden]="!hasRelatedScroll"
+      (click)="scrollRelatedContent('right')"
+        >
+          <i class="fa-solid fa-chevron-right"></i>
+        </button>
+
+        <div 
+          #relatedContent
+        class="cart-related-products-list"
+        (scroll)="onRelatedScroll()"
+        >
+
+          @for (product of relatedProducts; track product.id) {
+  <div class="cart-related-product">
+
+    <img
+      class="cart-related-product-image"
+      [src]="product.image"
+      [alt]="product.name"
+    >
+
+    <div class="cart-related-product-info">
+
+      <h3 class="cart-related-product-name">
+        {{ product.name }}
+      </h3>
+
+      <p class="cart-related-product-author">
+        {{ product.author }}
+      </p>
+
+      <div class="cart-related-product-bottom">
+
+        <div class="cart-related-product-prices">
+
+          <span class="cart-related-product-price-current">
+            {{ product.price | number:'1.0-0' }}đ
+          </span>
+
+          <span class="cart-related-product-price-old">
+            {{ product.oldPrice | number:'1.0-0' }}đ
+          </span>
+
+        </div>
+
+        <button
+          type="button"
+          class="cart-related-product-add"
+          (click)="addToCart(product)"
+        >
+          <i class="fa-solid fa-plus"></i>
+        </button>
+
+      </div>
+
+    </div>
+  </div>
+}
+
+        
+          
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+
+  <div class="cart-summary">
+
+    <div class="cart-summary-promotion">
+
+    <div class="cart-summary-promotion-header">
+       <span class="cart-summary-promotion-icon">
+  <i class="fa-solid fa-ticket"></i>
+</span>
+
+      <div class="cart-summary-promotion-content">
+        <p class="cart-summary-promotion-text">
+       ✓ {{ getSelectedPromotionCount() }} ưu đãi đang áp dụng
+        </p>
+      </div>
+    </div>
+
+      <button
+      type="button" 
+      class="cart-summary-promotion-button"
+      (click)="openPromotion()"
+      >
+        Xem thêm
+      </button>
+
+    </div>
+
+    <div class="cart-summary-gift">
+
+    <i class="fa-solid fa-gift cart-summary-gift-icon"></i>
+
+
+      <button 
+      type="button"
+      class="cart-summary-gift-button"
+      (click)="openGift()"
+      >
+  Xem quà ({{ getAvailableGiftCount() }})
+
+
+        <i class="fa-solid fa-chevron-right"></i>
+
+      </button>
+
+    </div>
+
+    <div class="cart-summary-order">
+
+      <h4 class="cart-summary-order-title">
+        Thông tin đơn hàng
+      </h4>
+
+    <div class="cart-summary-order-info">
+        <div class="cart-summary-order-row">
+        <span class="cart-summary-order-label">
+          Tổng tiền
+        </span>
+
+      <span class="cart-summary-order-value">
+  {{ cartSummary.subtotal | number:'1.0-0' }}₫
+</span>
+
+      </div>
+ <div class="cart-summary-order-row">
+        <span class="cart-summary-order-label">
+          Tổng khuyến mãi
+        </span>
+
+      <span class="cart-summary-order-value">
+  {{ cartSummary.promotionDiscount| number:'1.0-0' }}₫
+</span>
+
+      </div>
+      <div class="cart-summary-order-row">
+        <span class="cart-summary-order-label">
+          Phí vận chuyển
+        </span>
+
+        <span class="cart-summary-order-value">
+          95.000
+        </span>
+      </div>
+
+      <div class="cart-summary-order-row-total">
+        <span class="cart-summary-order-label-total">
+          Tổng cộng
+        </span>
+<span class="cart-summary-order-value-total">
+  {{ cartSummary.total | number:'1.0-0' }}₫
+</span>
+
+      </div>
+</div>
+      <button class="cart-summary-checkout">
+        Thanh toán Ngay
+      </button>
+
+    </div>
+
+  </div>
+</div>
+
+</div>

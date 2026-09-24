@@ -953,7 +953,7 @@
 
 .book-detail-related-prev.hidden,
 .book-detail-related-next.hidden {
-  display: none;
+  display: none !important;
 }
 
 .book-detail-related-content {

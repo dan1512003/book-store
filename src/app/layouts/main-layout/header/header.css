@@ -27,6 +27,7 @@
   flex-direction: column;
   width: 280px;
   max-height: 100vh;
+ height: 100%;
   background-color: #F5F0E8;
   border-right: 1px solid #C8BDA0;
   z-index: 1002;

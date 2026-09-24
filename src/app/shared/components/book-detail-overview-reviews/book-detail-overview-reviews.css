@@ -620,7 +620,7 @@ padding: 0;
 
   align-items: center;
 flex-wrap: wrap;
- 
+ gap: 5px;
 
 }
 .book-detail-overview-customer-reviews-rating-reply{

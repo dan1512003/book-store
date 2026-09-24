@@ -107,7 +107,7 @@ reviewContentElements!: QueryList<ElementRef<HTMLElement>>;
   isReviewsExpanded = false;
 isShowReplyBox = false;
 hasSubmittedReview = false;
-
+reply_author='';
 isEditingReview = false;
 myReview: Review | null = null;
 
@@ -486,10 +486,10 @@ submitReview(): void {
   openReviewReply(
     review: Review
   ): void {
-
+this.reply_author= review.author;
     console.log(
       'Mở reply review:',
-      review.id
+      this.reply_author
     );
 
 
@@ -515,10 +515,10 @@ submitReview(): void {
     review: Review,
     reply: Reply
   ): void {
-
+this.reply_author= reply.author;
     console.log(
       'Mở reply cho:',
-      reply.author
+      this.reply_author
     );
 
 
@@ -543,15 +543,19 @@ submitReview(): void {
 
     if (
       this.replyTargetId !== null
+  
     ) {
 
-      return 'Viết phản hồi...';
+     return `Viết phản hồi ${this.reply_author}`;
 
+
+    }else{
+  return 'Viết phản hồi';
     }
 
 
  
-    return 'Viết phản hồi...';
+ 
 
   }
 

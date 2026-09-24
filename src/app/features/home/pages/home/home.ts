@@ -40,6 +40,7 @@ export class Home implements AfterViewInit {
   
     this.router.navigate(['/book-detail']);
   }  
+   
   ngAfterViewInit(): void {
     this.updateScrollButtons();
   }

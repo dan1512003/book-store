@@ -415,6 +415,7 @@ onMenuScroll(): void {
     const scrollWidth = container.scrollWidth;
 
     this.hasRelatedScroll = Math.round(scrollWidth) > Math.round(clientWidth) + 1;
+    console.log('relatedscroll:',this.hasRelatedScroll)
     this.cdr.detectChanges();
   }
 }
