@@ -482,6 +482,14 @@ getAvailableGiftCount(): number {
     )
   ).length;
 }
+get availableGifts(): Gift[] {
+  return this.gifts.filter(gift =>
+    ConditionManager.checkCondition(
+      gift.condition,
+      this.cartProducts
+    )
+  );
+}
 
 calculateCartSummary(): void {
 
