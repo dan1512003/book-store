@@ -11,7 +11,13 @@ import {
 
 import { Router } from '@angular/router';
 
-
+interface BookCategory {
+  id: number;
+  type: string;
+  description: string;
+  number: string;
+  icon: string;
+}
 @Component({
   imports: [],
   selector: 'app-home',
@@ -25,6 +31,51 @@ export class Home implements AfterViewInit {
 
   showScrollLeft = false;
   showScrollRight = false;
+bookCategories: BookCategory[] = [
+  {
+    id: 1,
+    type: 'Văn Học',
+    description: 'Được đọc nhiều nhất',
+    number: '1.240 cuốn',
+    icon: '✦'
+  },
+  {
+    id: 2,
+    type: 'Tâm Lý Học',
+    description: 'Hiểu mình, hiểu người',
+    number: '486 cuốn',
+    icon: '◈'
+  },
+  {
+    id: 3,
+    type: 'Kinh Tế',
+    description: 'Tư duy & tài chính',
+    number: '732 cuốn',
+    icon: '◆'
+  },
+  {
+    id: 4,
+    type: 'Lịch Sử',
+    description: 'Chuyện xưa còn mãi',
+    number: '398 cuốn',
+    icon: '◉'
+  },
+  {
+    id: 5,
+    type: 'Thiếu Nhi',
+    description: 'Nuôi dưỡng tâm hồn',
+    number: '615 cuốn',
+    icon: '◇'
+  },
+  {
+    id: 6,
+    type: 'Khoa Học',
+    description: 'Khám phá thế giới',
+    number: '520 cuốn',
+    icon: '⬡'
+  }
+];
+
 
 
 
@@ -36,6 +87,12 @@ export class Home implements AfterViewInit {
     });
   }
 
+selectedCategoryId: number = 1;
+
+
+selectCategory(category: BookCategory): void {
+  this.selectedCategoryId = category.id;
+}
  goToBookDetail() {
   
     this.router.navigate(['/book-detail']);

@@ -15,6 +15,16 @@ position: relative;
   padding: 16px 16px;
 
 }
+.login-background-content{
+  display: flex;
+flex-direction: column;
+   position: relative;
+   z-index: 3;
+justify-content: center;
+   flex: 1;
+
+   width: 100%;
+}
 .login-background-form {
   display: none !important;
   position: relative;
@@ -79,7 +89,7 @@ position: relative;
   letter-spacing: 1.2px;
 }
 .member-benefits{
-flex: 1;
+
     position: relative;
     width: 100%;
 max-width: 639px;
@@ -133,6 +143,7 @@ margin: 50px 0px;
   padding: 14px 16px;
 
   margin-bottom: 12px;
+  gap: 15px;
 }
 /* .benefit-content{
   background-color: RED;
@@ -161,7 +172,7 @@ padding: 0;
   line-height: 16px;
 }
 .form{
-  width: 50%;
+  width: 40%;
   padding: 0px 20px;
 }
 .main-wrapper {
@@ -519,23 +530,15 @@ margin: 20px 0px;
   }
   @media screen and (max-width: 448px){
      .member-benefits{
-
- 
-margin: 20px 0px;
-
+     margin: 20px 0px;
 }
 
-        .login-background  {
-
+.login-background  {
   width: 100%;
-
 
 }
 .login-background-form  {
-
  display: flex !important;
-
-
 }
  .form{
   display: none !important;

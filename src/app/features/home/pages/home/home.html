@@ -42,6 +42,60 @@
     </div></div>
     
 </section>
+
+
+<section class="home-section-cate">
+  <div class="book-categories">
+
+  <div class="book-categories-header">
+   <div class="book-categories-header-title">
+    <p>KHÁM PHÁ THEO SỞ THÍCH</p>
+     <h2>Danh mục sách</h2>
+   </div>
+
+    <a href="#" class="book-categories-view-all">
+      Xem tất cả
+      <i class="fa-solid fa-arrow-right"></i>
+    </a>
+  </div>
+
+<div class="book-categories-list">
+
+  @for (item of bookCategories; track item.id) {
+
+  <div
+  class="book-category-item"
+  [class.active]="selectedCategoryId === item.id"
+  (click)="selectCategory(item)"
+>
+
+  <span class="decoration">{{ item.icon }}</span>
+  <span class="banner">{{ item.icon }}</span>
+
+
+
+  <span class="content">
+    <span class="type">
+      {{ item.type }}
+    </span>
+
+    <span class="description">
+      {{ item.description }}
+    </span>
+
+    <span class="number">
+      <span>{{ item.number }}</span>
+      <i class="fa-solid fa-arrow-right"></i>
+    </span>
+  </span>
+</div>
+
+  }
+
+</div>
+
+</div>
+</section>
 <section class="home-popular-books">
 <div class="home-popular-book-title">
 <div>
@@ -317,7 +371,7 @@
  <div class="home-featured-books">
   <div class="home-featured-books-title">
     <div>
-      <h2>Sách Nổi Bật</h2>
+      <h2>Sách Mới Về</h2>
     </div>
 
     <a>Xem thêm →</a>
@@ -449,7 +503,7 @@
 
   <div class="home-best-selling-title">
     <div>
-      <h2>Sách Nổi Bật</h2>
+      <h2>Sách Bán Chạy</h2>
     </div>
 
   </div>
@@ -707,7 +761,7 @@
 
         <div class="home-customer-reviews-info">
           <div class="home-customer-reviews-name">
-            Trần Thị bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+            Trần Thị B
           </div>
 
           <div class="home-customer-reviews-city">
