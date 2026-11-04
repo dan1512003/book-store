@@ -318,7 +318,7 @@
         <button 
         type="button"
         class="cart-related-products-button cart-related-products-button-prev"
-              [class.hidden]="!hasRelatedScroll"
+              [class.hidden]="!hasRelatedScroll()"
       (click)="scrollRelatedContent('left')">
           <i class="fa-solid fa-chevron-left"></i>
         </button>
@@ -326,7 +326,7 @@
         <button
          type="button"
          class="cart-related-products-button cart-related-products-button-next"
-           [class.hidden]="!hasRelatedScroll"
+           [class.hidden]="!hasRelatedScroll()"
       (click)="scrollRelatedContent('right')"
         >
           <i class="fa-solid fa-chevron-right"></i>

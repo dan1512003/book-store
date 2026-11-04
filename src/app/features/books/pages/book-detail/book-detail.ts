@@ -1,25 +1,26 @@
+
 import {
   ChangeDetectorRef,
   Component,
   ElementRef,
-  HostListener,
+  OnDestroy,
   PLATFORM_ID,
   ViewChild,
   afterNextRender,
   inject,
+  signal,
 } from '@angular/core';
 
 import { CommonModule, isPlatformBrowser } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 import { BookDetailOverviewDescription } from '../../../../shared/components/book-detail-overview-description/book-detail-overview-description';
 import { BookDetailOverviewInformation } from '../../../../shared/components/book-detail-overview-information/book-detail-overview-information';
 import { BookDetailOverviewReviews } from '../../../../shared/components/book-detail-overview-reviews/book-detail-overview-reviews';
-import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-book-detail',
   standalone: true,
-
   imports: [
     CommonModule,
     FormsModule,
@@ -27,33 +28,67 @@ import { FormsModule } from '@angular/forms';
     BookDetailOverviewDescription,
     BookDetailOverviewInformation,
   ],
-
   templateUrl: './book-detail.html',
   styleUrl: './book-detail.css',
 })
-export class BookDetail {
+export class BookDetail implements OnDestroy {
   private readonly platformId = inject(PLATFORM_ID);
   private readonly cdr = inject(ChangeDetectorRef);
 
+  // =========================================
+  // VIEW CHILD
+  // =========================================
+
+  @ViewChild('coverThumbnails')
+  coverThumbnails?: ElementRef<HTMLDivElement>;
 
   @ViewChild('thumbnailsContent')
   thumbnailsContent?: ElementRef<HTMLDivElement>;
-@ViewChild('overviewMenuList')
+
+  @ViewChild('overviewMenuList')
   overviewMenuList?: ElementRef<HTMLDivElement>;
-@ViewChild('relatedContent')
+
+  @ViewChild('relatedContent')
   relatedContent?: ElementRef<HTMLDivElement>;
+
+  // =========================================
+  // RESIZE OBSERVERS
+  // =========================================
+
+  private coverResizeObserver?: ResizeObserver;
+  private galleryResizeObserver?: ResizeObserver;
+  private overviewResizeObserver?: ResizeObserver;
+  private relatedResizeObserver?: ResizeObserver;
+
+  private measureFrameId: number | null = null;
+
+  // =========================================
+  // COMPONENT STATE
+  // =========================================
 
   activeTab = 'description';
 
   isGalleryOpen = false;
-hasScroll = false;
-hasMenuScroll = false;
-hasRelatedScroll = false;
+
+  hasScroll = signal(false);
+  hasMenuScroll = signal(false);
+  hasRelatedScroll = signal(false);
+
   selectedImageIndex = 0;
 
-  maxVisible = 7;
+  // Số lượng thumbnail hiển thị
+  maxVisible = signal(1);
 
+  // =========================================
+  // THUMBNAIL CONFIG
+  // =========================================
 
+  private readonly minItemWidth = 60;
+  private readonly thumbnailGap = 8;
+
+  // =========================================
+  // BOOK IMAGES
+  // =========================================
 
   images: string[] = [
     '/assets/images/books/ba-ga-cung-thuyen-chua-ke-con-cho.webp',
@@ -76,32 +111,132 @@ hasRelatedScroll = false;
     '/assets/images/books/800-800_9be235e6-bd73-45ad-ad67-baf0ae3e850f.webp',
   ];
 
-  constructor() {
+  // =========================================
+  // CONSTRUCTOR
+  // =========================================
+//kiemem hưu rchu kỳ
+  // constructor() {
+  //   afterNextRender(() => {
+  //     this.observeCoverSize();
+  //     this.observeOverviewSize();
+  //     this.observeRelatedSize();
 
-    afterNextRender(() => {
-    this.updateMenuScrollState();
-    this.updateRelatedScrollState();
+  //     this.updateMenuScrollState();
+  //     this.updateRelatedScrollState();
+  //   });
+  // }
+  
+// ngAfterViewInit(): void {
+//   this.observeCoverSize();
+//       this.observeOverviewSize();
+//       this.observeRelatedSize();
+
+//       this.updateMenuScrollState();
+//       this.updateRelatedScrollState();
+// }
+
+
+// ngOnChanges(): void {
+//   console.log('========== NG ON CHANGES ==========');
+
+//   this.observeCoverSize();
+//   this.observeOverviewSize();
+//   this.observeRelatedSize();
+
+//   this.updateMenuScrollState();
+//   this.updateRelatedScrollState();
+// }
+
+// ngOnInit(): void {
+//    this.observeCoverSize();
+//   this.observeOverviewSize();
+//   this.observeRelatedSize();
+
+//   this.updateMenuScrollState();
+//   this.updateRelatedScrollState();
+
+
+// }
+
+// ngDoCheck(): void {
+//    this.observeCoverSize();
+//   this.observeOverviewSize();
+//   this.observeRelatedSize();
+
+//   this.updateMenuScrollState();
+//   this.updateRelatedScrollState();
+// }
+
+// ngAfterContentInit(): void {
+//   this.observeCoverSize();
+//   this.observeOverviewSize();
+//   this.observeRelatedSize();
+
+//   this.updateMenuScrollState();
+//   this.updateRelatedScrollState();
+// }
+
+// ngAfterContentChecked(): void {
+//   this.observeCoverSize();
+//   this.observeOverviewSize();
+//   this.observeRelatedSize();
+
+//   this.updateMenuScrollState();
+//   this.updateRelatedScrollState();
+// }
+
+
+ngAfterViewChecked(): void {
+   this.observeCoverSize();
+  this.observeOverviewSize();
+  this.observeRelatedSize();
+
+  this.updateMenuScrollState();
+  this.updateRelatedScrollState();
+}
+
+
+  // =========================================
+  // DESTROY
+  // =========================================
+
+  ngOnDestroy(): void {
+    if (
+      this.measureFrameId !== null &&
+      isPlatformBrowser(this.platformId)
+    ) {
+      cancelAnimationFrame(this.measureFrameId);
+      this.measureFrameId = null;
+    }
+
+    this.coverResizeObserver?.disconnect();
+    this.galleryResizeObserver?.disconnect();
+    this.overviewResizeObserver?.disconnect();
+    this.relatedResizeObserver?.disconnect();
+  }
+
+
+  private scheduleMeasure(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    if (this.measureFrameId !== null) {
+      cancelAnimationFrame(this.measureFrameId);
+    }
+
+    this.measureFrameId = requestAnimationFrame(() => {
+      if (this.isGalleryOpen) {
+        this.updateScrollButtons();
+      }
+
+      this.updateMenuScrollState();
+      this.updateRelatedScrollState();
+
+      this.measureFrameId = null;
     });
   }
-  ngOnInit(): void {
-    this.updateMaxVisible();
-  }
 
-   @HostListener('window:resize')
-onResize(): void {
- 
-  requestAnimationFrame(() => {
-
-    this.updateMaxVisible();
-  this.updateScrollButtons();
-
-this.updateMenuScrollState();
-this.updateRelatedScrollState();
-   
-  });
-
- 
-}
 
 
   changeTab(tab: string): void {
@@ -110,47 +245,141 @@ this.updateRelatedScrollState();
 
 
 
-openGallery(index: number): void {
-  if (
-    index < 0 ||
-    index >= this.images.length
-  ) {
-    return;
+  private updateMaxVisible(containerWidth: number): void {
+    if (
+      !isPlatformBrowser(this.platformId) ||
+      containerWidth <= 0 ||
+      this.images.length === 0
+    ) {
+      return;
+    }
+
+    const minItemWidth = this.minItemWidth;
+    const gap = this.thumbnailGap;
+
+
+    let newMaxVisible = Math.floor(
+      (containerWidth + gap) / (minItemWidth + gap),
+    );
+
+    if (newMaxVisible < 1) {
+      newMaxVisible = 1;
+    }
+
+    if (newMaxVisible > this.images.length) {
+      newMaxVisible = this.images.length;
+    }
+
+    if (this.maxVisible() === newMaxVisible) {
+      return;
+    }
+
+    this.maxVisible.set(newMaxVisible);
+
+    const itemWidth =
+      (containerWidth - (newMaxVisible - 1) * gap) /
+      newMaxVisible;
+
+    console.log('[COVER THUMBNAILS RESIZE]', {
+      containerWidth,
+      minItemWidth,
+      gap,
+      maxVisible: newMaxVisible,
+      itemWidth,
+      totalImages: this.images.length,
+      hiddenImages: this.images.length - (newMaxVisible - 1),
+    });
+
+    this.cdr.markForCheck();
   }
 
-  this.selectedImageIndex = index;
-
-  this.isGalleryOpen = true;
-
-  this.cdr.detectChanges();
-
-  requestAnimationFrame(() => {
-
-    
 
 
-    this.updateScrollButtons();
+  private observeCoverSize(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
 
-    this.scrollThumbnailToIndex(
-      this.selectedImageIndex
-    );
+    const container = this.coverThumbnails?.nativeElement;
+
+    if (!container) {
+      return;
+    }
+
+    this.coverResizeObserver?.disconnect();
+
+    this.coverResizeObserver = new ResizeObserver((entries) => {
+      for (const entry of entries) {
+     
+        const containerWidth = entry.contentRect.width;
+
+        this.updateMaxVisible(containerWidth);
+      }
+    });
+
    
-  });
-}
+    this.coverResizeObserver.observe(container);
 
+  
+    if (container.parentElement) {
+      this.coverResizeObserver.observe(container.parentElement);
+    }
+
+  
+    this.updateMaxVisible(container.getBoundingClientRect().width);
+  }
+
+
+  openGallery(index: number): void {
+    if (index < 0 || index >= this.images.length) {
+      return;
+    }
+
+    // Chỉ hàm này mới mở Gallery
+    this.selectedImageIndex = index;
+    this.isGalleryOpen = true;
+
+    this.cdr.detectChanges();
+
+    requestAnimationFrame(() => {
+      if (!this.isGalleryOpen) {
+        return;
+      }
+
+      const container = this.thumbnailsContent?.nativeElement;
+
+      if (!container) {
+        return;
+      }
+
+      this.observeGallerySize();
+      this.updateScrollButtons();
+      this.scrollThumbnailToIndex(index);
+    });
+  }
 
   closeGallery(): void {
     this.isGalleryOpen = false;
-  
+
+    this.hasScroll.set(false);
+
+    this.galleryResizeObserver?.disconnect();
+    this.galleryResizeObserver = undefined;
   }
+
+
 
   selectImage(index: number): void {
     if (index < 0 || index >= this.images.length) {
       return;
     }
 
+    // Chọn ảnh không mở Gallery
     this.selectedImageIndex = index;
-    this.scrollThumbnailToIndex(index);
+
+    if (this.isGalleryOpen) {
+      this.scrollThumbnailToIndex(index);
+    }
   }
 
   previousImage(): void {
@@ -160,71 +389,71 @@ openGallery(index: number): void {
 
     this.selectedImageIndex--;
 
-    this.scrollThumbnailToIndex(
-      this.selectedImageIndex
-    );
+    if (this.isGalleryOpen) {
+      this.scrollThumbnailToIndex(this.selectedImageIndex);
+    }
   }
 
   nextImage(): void {
-    if (
-      this.selectedImageIndex >=
-      this.images.length - 1
-    ) {
+    if (this.selectedImageIndex >= this.images.length - 1) {
       return;
     }
 
     this.selectedImageIndex++;
 
-    this.scrollThumbnailToIndex(
-      this.selectedImageIndex
-    );
+    if (this.isGalleryOpen) {
+      this.scrollThumbnailToIndex(this.selectedImageIndex);
+    }
   }
 
+  // =========================================
+  // GALLERY RESIZE OBSERVER
+  // =========================================
 
-  private updateMaxVisible(): void {
+  private observeGallerySize(): void {
     if (!isPlatformBrowser(this.platformId)) {
       return;
     }
 
-    const width = window.innerWidth;
-
-    if (width <= 195) {
-      this.maxVisible = 1;
-    } else if (width <= 295) {
-      this.maxVisible = 2;
-    } else if (width <= 395) {
-      this.maxVisible = 3;
-    } else if (width <= 495) {
-      this.maxVisible = 4;
-    } else if (width <= 595) {
-      this.maxVisible = 5;
-    } else if (width <= 695) {
-      this.maxVisible = 6;
-    } else if (width <= 850) {
-      this.maxVisible = 8;
-    } else if (width <= 1000) {
-      this.maxVisible = 6;
-    } else {
-      this.maxVisible = 7;
-    }
-  }
-
-
-
-
-  private scrollThumbnailToIndex(
-    index: number
-  ): void {
-    const container =
-      this.thumbnailsContent?.nativeElement;
+    const container = this.thumbnailsContent?.nativeElement;
 
     if (!container) {
       return;
     }
 
+    this.galleryResizeObserver?.disconnect();
+
+    this.galleryResizeObserver = new ResizeObserver(() => {
+      this.scheduleMeasure();
+    });
+
+    this.galleryResizeObserver.observe(container);
+
+    if (container.parentElement) {
+      this.galleryResizeObserver.observe(container.parentElement);
+    }
+
+    container
+      .querySelectorAll<HTMLElement>('.gallery-thumbnail')
+      .forEach((thumbnail) => {
+        this.galleryResizeObserver?.observe(thumbnail);
+      });
+  }
+
+  // =========================================
+  // SCROLL TO SELECTED THUMBNAIL
+  // =========================================
+
+  private scrollThumbnailToIndex(index: number): void {
+    const container = this.thumbnailsContent?.nativeElement;
+
+    if (!container || !this.isGalleryOpen) {
+      return;
+    }
+
     const thumbnails =
       container.querySelectorAll<HTMLButtonElement>(
-        '.gallery-thumbnail'
+        '.gallery-thumbnail',
       );
 
     const thumbnail = thumbnails[index];
@@ -244,23 +473,30 @@ openGallery(index: number): void {
     }, 300);
   }
 
+  // =========================================
+  // GALLERY SCROLL EVENT
+  // =========================================
+
   onThumbnailsScroll(): void {
     this.updateScrollButtons();
   }
 
-  scrollThumbnailsContent(
-    direction: 'left' | 'right'
-  ): void {
-    const container =
-      this.thumbnailsContent?.nativeElement;
+  // =========================================
+  // SCROLL GALLERY
+  // =========================================
 
-    if (!container) {
+  scrollThumbnailsContent(
+    direction: 'left' | 'right',
+  ): void {
+    const container = this.thumbnailsContent?.nativeElement;
+
+    if (!container || !this.isGalleryOpen) {
       return;
     }
 
     const item =
       container.querySelector<HTMLButtonElement>(
-        '.gallery-thumbnail'
+        '.gallery-thumbnail',
       );
 
     if (!item) {
@@ -274,15 +510,10 @@ openGallery(index: number): void {
       parseFloat(style.gap) ||
       0;
 
-    const scrollAmount =
-      item.offsetWidth + gap;
+    const scrollAmount = item.offsetWidth + gap;
 
     container.scrollBy({
-      left:
-        direction === 'right'
-          ? scrollAmount
-          : -scrollAmount,
-
+      left: direction === 'right' ? scrollAmount : -scrollAmount,
       behavior: 'smooth',
     });
 
@@ -291,62 +522,51 @@ openGallery(index: number): void {
     }, 350);
   }
 
+  // =========================================
+  // UPDATE GALLERY SCROLL STATE
+  // =========================================
 
-updateScrollButtons(): void {
-  const container = this.thumbnailsContent?.nativeElement;
+  updateScrollButtons(): void {
+    const container = this.thumbnailsContent?.nativeElement;
 
-  console.log('updateScrollButtons');
-  console.log('isGalleryOpen:', this.isGalleryOpen);
-  console.log('container:', container);
+    if (!container || !this.isGalleryOpen) {
+      this.hasScroll.set(false);
+      return;
+    }
 
-  if (!container) {
-    console.log('KHÔNG CÓ thumbnailsContent');
-    this.hasScroll = false;
-    this.cdr.detectChanges();
-    return;
-  }
+    const clientWidth = container.clientWidth;
+    const scrollWidth = container.scrollWidth;
 
-  const scrollLeft = container.scrollLeft;
-  const clientWidth = container.clientWidth;
-  const scrollWidth = container.scrollWidth;
+    const hasOverflow = scrollWidth > clientWidth + 1;
 
+    this.hasScroll.set(hasOverflow);
 
-  this.hasScroll = Math.round(scrollWidth) > Math.round(clientWidth) + 1;
-
-  console.log('hasScroll:', this.hasScroll);
-
-  if (!this.hasScroll) {
-    console.log('KHÔNG CÓ SCROLL');
-  } else {
-    console.log('CÓ SCROLL');
-    console.log({
-      scrollLeft,
+    console.log('[GALLERY SCROLL]', {
       clientWidth,
       scrollWidth,
+      hasOverflow,
     });
   }
 
+  // =========================================
+  // OVERVIEW MENU
+  // =========================================
 
-
- 
-  this.cdr.detectChanges();
-}
-
-
-
-
-onMenuScroll(): void {
+  onMenuScroll(): void {
     this.updateMenuScrollState();
   }
 
-  scrollMenuContent(direction: 'left' | 'right'): void {
+  scrollMenuContent(
+    direction: 'left' | 'right',
+  ): void {
     const container = this.overviewMenuList?.nativeElement;
-    if (!container) return;
 
-    const scrollAmount = 200; 
+    if (!container) {
+      return;
+    }
 
     container.scrollBy({
-      left: direction === 'right' ? scrollAmount : -scrollAmount,
+      left: direction === 'right' ? 200 : -200,
       behavior: 'smooth',
     });
 
@@ -359,37 +579,87 @@ onMenuScroll(): void {
     const container = this.overviewMenuList?.nativeElement;
 
     if (!container || !isPlatformBrowser(this.platformId)) {
-      this.hasMenuScroll = false;
-      this.cdr.detectChanges();
+      this.hasMenuScroll.set(false);
       return;
     }
 
     const clientWidth = container.clientWidth;
     const scrollWidth = container.scrollWidth;
 
-    this.hasMenuScroll = Math.round(scrollWidth) > Math.round(clientWidth) + 1;
-    this.cdr.detectChanges();
+    const hasOverflow = scrollWidth > clientWidth + 1;
+
+    this.hasMenuScroll.set(hasOverflow);
+
+    console.log('[MENU SCROLL]', {
+      clientWidth,
+      scrollWidth,
+      hasOverflow,
+    });
   }
 
+  // =========================================
+  // OBSERVE OVERVIEW SIZE
+  // =========================================
+
+  private observeOverviewSize(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const container = this.overviewMenuList?.nativeElement;
+
+    if (!container) {
+      return;
+    }
+
+    this.overviewResizeObserver?.disconnect();
+
+    this.overviewResizeObserver = new ResizeObserver(() => {
+      this.scheduleMeasure();
+    });
+
+    this.overviewResizeObserver.observe(container);
+
+    container
+      .querySelectorAll<HTMLElement>('button')
+      .forEach((button) => {
+        this.overviewResizeObserver?.observe(button);
+      });
+  }
+
+  // =========================================
+  // RELATED BOOKS
+  // =========================================
 
   onRelatedScroll(): void {
     this.updateRelatedScrollState();
   }
 
- 
-  scrollRelatedContent(direction: 'left' | 'right'): void {
+  scrollRelatedContent(
+    direction: 'left' | 'right',
+  ): void {
     const container = this.relatedContent?.nativeElement;
-    if (!container) return;
 
-   
-    const card = container.querySelector<HTMLDivElement>('.book-detail-related-card');
-    if (!card) return;
+    if (!container) {
+      return;
+    }
 
-  
+    const card =
+      container.querySelector<HTMLDivElement>(
+        '.book-detail-related-card',
+      );
+
+    if (!card) {
+      return;
+    }
+
     const style = getComputedStyle(container);
-    const gap = parseFloat(style.columnGap) || parseFloat(style.gap) || 0;
 
-    
+    const gap =
+      parseFloat(style.columnGap) ||
+      parseFloat(style.gap) ||
+      0;
+
     const scrollAmount = card.offsetWidth + gap;
 
     container.scrollBy({
@@ -406,16 +676,53 @@ onMenuScroll(): void {
     const container = this.relatedContent?.nativeElement;
 
     if (!container || !isPlatformBrowser(this.platformId)) {
-      this.hasRelatedScroll = false;
-      this.cdr.detectChanges();
+      this.hasRelatedScroll.set(false);
       return;
     }
 
     const clientWidth = container.clientWidth;
     const scrollWidth = container.scrollWidth;
 
-    this.hasRelatedScroll = Math.round(scrollWidth) > Math.round(clientWidth) + 1;
-    console.log('relatedscroll:',this.hasRelatedScroll)
-    this.cdr.detectChanges();
+    const hasOverflow = scrollWidth > clientWidth + 5;
+
+    this.hasRelatedScroll.set(hasOverflow);
+
+    console.log('[RELATED SCROLL]', {
+      clientWidth,
+      scrollWidth,
+      hasOverflow,
+    });
+  }
+
+  // =========================================
+  // OBSERVE RELATED SIZE
+  // =========================================
+
+  private observeRelatedSize(): void {
+    if (!isPlatformBrowser(this.platformId)) {
+      return;
+    }
+
+    const container = this.relatedContent?.nativeElement;
+
+    if (!container) {
+      return;
+    }
+
+    this.relatedResizeObserver?.disconnect();
+
+    this.relatedResizeObserver = new ResizeObserver(() => {
+      this.scheduleMeasure();
+    });
+
+    this.relatedResizeObserver.observe(container);
+
+    container
+      .querySelectorAll<HTMLElement>(
+        '.book-detail-related-card',
+      )
+      .forEach((card) => {
+        this.relatedResizeObserver?.observe(card);
+      });
   }
 }

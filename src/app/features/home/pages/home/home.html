@@ -761,7 +761,7 @@
 
         <div class="home-customer-reviews-info">
           <div class="home-customer-reviews-name">
-            Trần Thị B
+            Trần Văn B
           </div>
 
           <div class="home-customer-reviews-city">
@@ -808,13 +808,13 @@
 
   <div
   class="review-scroll-buttons"
-  [class.is-hidden]="!showScrollLeft && !showScrollRight"
+  [class.is-hidden]="!showScrollLeft() && !showScrollRight()"
   >
 
   <button
     type="button"
     class="review-scroll-left"
-    [class.is-hidden]="!showScrollLeft"
+    [class.is-hidden]="!showScrollLeft()"
     (click)="scrollReviews('left')"
   >
     <i class="fa-solid fa-chevron-left"></i>
@@ -823,7 +823,7 @@
   <button
     type="button"
     class="review-scroll-right"
-    [class.is-hidden]="!showScrollRight"
+    [class.is-hidden]="!showScrollRight()"
     (click)="scrollReviews('right')"
   >
     <i class="fa-solid fa-chevron-right"></i>

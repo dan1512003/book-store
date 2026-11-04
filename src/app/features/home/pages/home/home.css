@@ -1333,6 +1333,20 @@ justify-content:space-between ;
 .book-category-item.active .decoration {
   color: rgba(255, 255, 255, 0.3);
 }
+
+.home-popular-book-image img,
+.home-featured-book-image img,
+.home-best-selling-image img,
+.home-popular-book-add-card {
+  transition: transform 0.3s ease;
+}
+
+.home-popular-book-image:hover img,
+.home-featured-book-image:hover img,
+.home-best-selling-image:hover img,
+.home-popular-book-image:hover .home-popular-book-add-card {
+  transform: scale(1.05);
+}
    /* TABLET */
 
 @media screen and (max-width: 900px) {
