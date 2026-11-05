@@ -153,7 +153,7 @@ width: 100%;
   
   display: flex;
   flex-direction: row;
-   
+align-items: flex-end;
   justify-content: space-between;
 }
 .home-popular-book-title >div {
@@ -1105,11 +1105,12 @@ display: flex;
   max-width: 1280px;
 width: 100%;
   margin: 0 auto;
+
   display: flex;
   flex-direction: column;
   /* background-color: #C4812A; */
   gap: 10px;
-  padding: 48px 24px 48px 24px;
+  padding: 48px 24px 0px 24px;
 
 }
 
@@ -1153,10 +1154,10 @@ width: 100%;
 
   text-decoration: none;
 
-  font-family: "Source Sans 3", sans-serif;
+  line-height: 20px;
   font-size: 14px;
-  font-weight: 600;
-
+  font-family: "Source Sans 3", sans-serif;
+  font-weight: 500;
   color: #8B3A1A;
 }
 
@@ -1346,6 +1347,15 @@ justify-content:space-between ;
 .home-best-selling-image:hover img,
 .home-popular-book-image:hover .home-popular-book-add-card {
   transform: scale(1.05);
+}
+.home-banner-explore:hover ,
+.home-banner-promotion:hover,
+.home-discount-books-countdown-buy-now>button:hover ,
+.home-featured-book-car-bottom>button:hover,
+.home-subscribe-offer-button:hover 
+
+{
+  filter: brightness(1.2);
 }
    /* TABLET */
 

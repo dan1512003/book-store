@@ -81,7 +81,7 @@
   max-width: 100%;
 
   border-radius: 4px;
-  object-fit: contain;
+  object-fit: fill;
 }
 
 .gallery-main > button {
@@ -1197,6 +1197,13 @@
 
 .gallery-thumbnail-list > button:hover > img {
   transform: scale(1.08);
+}
+.book-detail-info-cart:hover ,
+.book-detail-info-wishlist:hover,
+.book-detail-info-buy:hover 
+
+{
+  filter: brightness(1.2);
 }
 
 /* =========================================

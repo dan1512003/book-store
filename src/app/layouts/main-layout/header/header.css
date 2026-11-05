@@ -143,6 +143,11 @@
   color: #FAF7F0;
   border: none;
 }
+.side-nav-bottom-login:hover ,
+.side-nav-bottom-register:hover
+{
+  filter: brightness(1.2);
+}
 .side-nav-bottom-register {
   background-color: #F5F0E8;
   color: #8B3A1A;

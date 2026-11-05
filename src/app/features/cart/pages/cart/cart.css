@@ -498,7 +498,7 @@ color: #C4812A;
 }
 
 .cart-product-image {
-    width: 64px;
+    width: 78px;
     height: 96px;
     border: 1px solid #C8BDA0;
     border-radius: 12px;
@@ -678,13 +678,13 @@ font-size: 12px;
     display: flex;
   flex-direction: column;
 border-radius: 12px;
-  width: 176px;
+  width: 156px;
   height: 100%;
 }
 .cart-related-product-image {
-  flex: 0 0 128px;
-  width: 176px;
-  height: 128px;
+  flex: 0 0 170px;
+  width: 100%;
+  height: 170px;
 
   border-radius: 12px;
  
@@ -917,6 +917,24 @@ padding: 12px 0px;
   font-weight: 700;
   line-height: 20px
 }
+.cart-product-image:hover,
+.cart-related-product-image:hover {
+ transform: scale(1.05);
+}
+.cart-product-image,
+.cart-related-product-image {
+ transition: transform 0.3s ease;
+}
+.cart-summary-checkout:hover ,
+/* .book-detail-info-wishlist:hover,
+.home-discount-books-countdown-buy-now>button:hover ,
+.home-featured-book-car-bottom>button:hover, */
+.cart-related-product-add:hover 
+
+{
+  filter: brightness(1.2);
+}
+
 @media (min-width: 300px) and (max-width: 750px) {
   .cart-container{
 
